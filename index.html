@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning Journey</title>
+    <title>English Learning Journey - Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <!-- Шапка для мобильных устройств -->
     <div class="mobile-header">
-        <span style="font-weight: bold;">English Journey</span>
+        <span style="font-weight: bold; font-size: 1.2rem; color: var(--primary-color);">English Journey</span>
         <button class="mobile-toggle" onclick="toggleMobileSidebar()">☰</button>
     </div>
 
-    <!-- Боковое меню -->
+    <!-- Боковое меню (Sidebar) -->
     <aside id="sidebar">
-        <!-- Кнопка-стрелочка для ПК -->
+        <!-- Кнопка-стрелочка для сворачивания на ПК -->
         <button class="toggle-btn" id="sidebar-toggle" onclick="toggleDesktopSidebar()">◀</button>
 
         <div class="logo">English Journey</div>
-        
+
         <ul class="nav-links">
             <li class="active">
                 <a href="index.html">
@@ -67,9 +67,125 @@
         </ul>
     </aside>
 
+    <!-- Основной контент страницы -->
     <main>
-        <h1>English Learning Journey</h1>
-        <p>Содержимое страницы...</p>
+        <!-- Верхние карточки статистики -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <p class="stat-title">Изучено слов</p>
+                <div class="stat-value">10 / 500</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 2%;"></div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <p class="stat-title">Текущая неделя</p>
+                <div class="stat-value">Week 1</div>
+                <p class="stat-sub">September 1–7</p>
+            </div>
+
+            <div class="stat-card">
+                <p class="stat-title">Текущий этап</p>
+                <div class="stat-value stage-value">1. 📚 Learn</div>
+                <p class="stat-sub">Изучение слов</p>
+            </div>
+
+            <div class="stat-card">
+                <p class="stat-title">Серия дней</p>
+                <div class="stat-value">7 days 🔥</div>
+                <p class="stat-sub">Отличный темп!</p>
+            </div>
+        </div>
+
+        <!-- Раздел карточек этапов обучения -->
+        <h2 class="section-title">Этапы обучения</h2>
+
+        <div class="stages-grid">
+            <div class="stage-card" onclick="window.location.href='learn.html'">
+                <div>
+                    <div class="stage-icon">📚</div>
+                    <h3>1. Learn</h3>
+                    <p>Изучение новых слов с помощью визуальных ассоциаций и озвучки.</p>
+                </div>
+                <div>
+                    <small>Прогресс: 10/10 слов дня</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-card" onclick="window.location.href='daily-tests.html'">
+                <div>
+                    <div class="stage-icon">📝</div>
+                    <h3>2. Daily Tests</h3>
+                    <p>Ежедневный тест на закрепление изученных слов дня.</p>
+                </div>
+                <div>
+                    <small>Выполнено: 1 тест</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-card" onclick="window.location.href='weekly-quiz.html'">
+                <div>
+                    <div class="stage-icon">🧠</div>
+                    <h3>3. Weekly Quiz</h3>
+                    <p>Итоговый комплексный тест по материалам всей недели.</p>
+                </div>
+                <div>
+                    <small>Не пройдено</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-card" onclick="window.location.href='practice.html'">
+                <div>
+                    <div class="stage-icon">✏️</div>
+                    <h3>4. Practice</h3>
+                    <p>Закрепление слов в контексте: предложения и упражнения.</p>
+                </div>
+                <div>
+                    <small>Выполнено: 3/6 упражнений</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-card" onclick="window.location.href='hard-level.html'">
+                <div>
+                    <div class="stage-icon">🔥</div>
+                    <h3>5. Hard Level</h3>
+                    <p>Продвинутый уровень: самостоятельное составление предложений.</p>
+                </div>
+                <div>
+                    <small>Активно</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 10%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stage-card" onclick="window.location.href='beyond-words.html'">
+                <div>
+                    <div class="stage-icon">🌎</div>
+                    <h3>6. Beyond Words</h3>
+                    <p>Тематический словарь для расширения лексического запаса.</p>
+                </div>
+                <div>
+                    <small>Доступно 10 категорий</small>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 15%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="js/sidebar.js"></script>
