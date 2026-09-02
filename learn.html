@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn — English Learning Journey</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <aside>
+        <div class="logo">English Journey</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><span>🏠</span> Home</a></li>
+            <li class="active"><a href="learn.html"><span>📚</span> Learn</a></li>
+            <li><a href="daily-tests.html"><span>📝</span> Daily Tests</a></li>
+            <li><a href="weekly-quiz.html"><span>🧠</span> Weekly Quiz</a></li>
+            <li><a href="practice.html"><span>✏️</span> Practice</a></li>
+            <li><a href="hard-level.html"><span>🔥</span> Hard Level</a></li>
+            <li><a href="beyond-words.html"><span>🌎</span> Beyond Words</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <h1>1. 📚 Learn — Изучение слов</h1>
+        
+        <div class="grid" id="learn-cards-container">
+            <!-- 3D Flip Card -->
+            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80" class="word-img" alt="hardworking">
+                        <h3>hardworking</h3>
+                        <button class="sound-btn" onclick="speakWord(event, 'hardworking')">🔊</button>
+                    </div>
+                    <div class="flip-card-back">
+                        <h2 style="color: var(--accent-color);">hardworking</h2>
+                        <h3>трудолюбивый</h3>
+                        <p><i>"She is a hardworking student."</i></p>
+                        <button class="sound-btn" onclick="speakWord(event, 'hardworking')">🔊</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/speech.js"></script>
+</body>
+</html>
