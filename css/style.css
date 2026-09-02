@@ -304,3 +304,158 @@ body.sidebar-collapsed main {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================
+   LEARN PAGE STYLES (Вынесены из media-query)
+   ========================================== */
+
+.date-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.date-tab {
+    background: #ffffff;
+    border: 2px solid #eef2f5;
+    border-radius: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-width: 140px;
+    user-select: none;
+}
+
+.date-tab:hover {
+    border-color: #d1d9e0;
+    transform: translateY(-2px);
+}
+
+.date-tab.active {
+    background: #ffffff;
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.15);
+}
+
+.tab-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tab-date {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.tab-count {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Flashcards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+/* 3D Card Flip Effect */
+.flashcard {
+    background-color: transparent;
+    height: 320px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: var(--shadow);
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+}
+
+.card-image-wrapper {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flashcard-front h3 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin: 10px 0 5px 0;
+}
+
+.audio-btn {
+    background: #f0f2f5;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-btn:hover {
+    background: #e2e6ea;
+}
+
+.hint-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.flashcard-back {
+    transform: rotateY(180deg);
+    justify-content: center;
+    background: linear-gradient(135deg, #fbfbfe 0%, #f4f3ff 100%);
+    border: 2px solid var(--accent-color);
+}
+
+.flashcard-back h3 {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    font-weight: bold;
+}
