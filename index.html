@@ -189,5 +189,24 @@
     </main>
 
     <script src="js/sidebar.js"></script>
+
+    <script type="module">
+    import { auth, syncUserStreak } from './js/firebase-config.js';
+    import { signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log("Авторизован анонимно! UID:", user.uid);
+            // Автоматически рассчитываем и сохраняем страйк
+            await syncUserStreak(user.uid);
+        } else {
+            try {
+                await signInAnonymously(auth);
+            } catch (error) {
+                console.error("Ошибка анонимного входа:", error);
+            }
+        }
+    });
+</script>
 </body>
 </html>
