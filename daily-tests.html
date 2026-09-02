@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tests — Проверка слов</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
+    <!-- Шапка для мобильных -->
+    <div class="mobile-header">
+        <span style="font-weight: bold; font-size: 1.2rem; color: var(--primary-color);">English Journey</span>
+        <button class="mobile-toggle" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+
+    <!-- Боковое меню -->
+    <aside id="sidebar">
+        <button class="toggle-btn" id="sidebar-toggle" onclick="toggleDesktopSidebar()">◀</button>
+        <div class="logo">English Journey</div>
+        <ul class="nav-links">
+            <li><a href="index.html"><span class="icon">🏠</span><span class="text">Home</span></a></li>
+            <li><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
+            <li class="active"><a href="daily-tests.html"><span class="icon">📝</span><span class="text">Daily Tests</span></a></li>
+            <li><a href="weekly-quiz.html"><span class="icon">🧠</span><span class="text">Weekly Quiz</span></a></li>
+            <li><a href="practice.html"><span class="icon">✏️</span><span class="text">Practice</span></a></li>
+            <li><a href="hard-level.html"><span class="icon">🔥</span><span class="text">Hard Level</span></a></li>
+            <li><a href="beyond-words.html"><span class="icon">🌎</span><span class="text">Beyond Words</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Основной контент -->
+    <main>
+        <h1 class="page-title">📝 Daily Tests — Проверка знаний</h1>
+        <p class="page-subtitle">Выберите дату, чтобы пройти тест по словам за этот день.</p>
+
+        <!-- Табы выбора дней -->
+        <div class="date-tabs" id="test-date-tabs"></div>
+
+        <!-- Контейнер теста -->
+        <div class="quiz-container" id="quiz-container">
+            <div class="quiz-header">
+                <span id="question-progress">Вопрос 1 из 10</span>
+                <span id="score-counter">Очки: 0</span>
+            </div>
+
+            <div class="quiz-card">
+                <h2 id="target-word">Word</h2>
+                <p class="quiz-hint">Выберите правильный перевод:</p>
+                <div class="options-grid" id="options-grid"></div>
+            </div>
+
+            <button class="next-btn" id="next-btn" style="display: none;" onclick="nextQuestion()">Следующий вопрос ➔</button>
+        </div>
+
+        <!-- Результаты -->
+        <div class="result-card" id="result-card" style="display: none;">
+            <h2>🎉 Тест завершён!</h2>
+            <p id="final-score-text">Вы ответили правильно на 0 из 0 вопросов.</p>
+            <button class="restart-btn" onclick="restartQuiz()">Пройти заново</button>
+        </div>
+    </main>
+
+    <script src="js/sidebar.js"></script>
+
+    <script type="module">
+        import { dailyWords } from './js/words-data.js';
+
+        let currentDay = Object.keys(dailyWords)[0];
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const tabsContainer = document.getElementById('test-date-tabs');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultCard = document.getElementById('result-card');
+
+        // Сбор всех переводов для вариантов ответов
+        const allTranslations = Object.values(dailyWords).flat().map(item => item.translation);
+
+        // Отрисовка табов
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            Object.keys(dailyWords).forEach(dayKey => {
+                const count = dailyWords[dayKey].length;
+                const tab = document.createElement('div');
+                tab.className = `date-tab ${dayKey === currentDay ? 'active' : ''}`;
+                tab.onclick = () => selectDay(dayKey);
+
+                tab.innerHTML = `
+                    <div class="tab-info">
+                        <span class="tab-date">${dayKey}</span>
+                        <span class="tab-count">${count} words</span>
+                    </div>
+                `;
+                tabsContainer.appendChild(tab);
+            });
+        }
+
+        function selectDay(dayKey) {
+            currentDay = dayKey;
+            renderTabs();
+            startQuiz();
+        }
+
+        // Запуск теста по выбранному дню
+        function startQuiz() {
+            const dayWords = dailyWords[currentDay] || [];
+
+            if (dayWords.length === 0) {
+                quizContainer.innerHTML = "<p>На эту дату пока нет слов для теста.</p>";
+                resultCard.style.display = "none";
+                return;
+            }
+
+            // Перемешиваем слова текущего дня
+            currentQuestions = [...dayWords].sort(() => Math.random() - 0.5);
+            currentQuestionIndex = 0;
+            score = 0;
+
+            quizContainer.style.display = "block";
+            resultCard.style.display = "none";
+
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.style.display = "none";
+
+            const q = currentQuestions[currentQuestionIndex];
+            document.getElementById('question-progress').innerText = `Вопрос ${currentQuestionIndex + 1} из ${currentQuestions.length}`;
+            document.getElementById('score-counter').innerText = `Очки: ${score}`;
+            document.getElementById('target-word').innerText = q.word;
+
+            // Формируем 4 варианта ответов (1 правильный + 3 случайных)
+            let options = [q.translation];
+            const otherTranslations = allTranslations.filter(t => t !== q.translation);
+            const shuffledOthers = [...otherTranslations].sort(() => Math.random() - 0.5);
+
+            options.push(...shuffledOthers.slice(0, 3));
+            options.sort(() => Math.random() - 0.5); // перемешиваем варианты
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(btn, opt, q.translation);
+                grid.appendChild(btn);
+            });
+        }
+
+        window.checkAnswer = function(selectedBtn, selectedOpt, correctOpt) {
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.disabled = true);
+
+            if (selectedOpt === correctOpt) {
+                selectedBtn.classList.add('correct');
+                score++;
+                document.getElementById('score-counter').innerText = `Очки: ${score}`;
+            } else {
+                selectedBtn.classList.add('wrong');
+                allBtns.forEach(b => {
+                    if (b.innerText === correctOpt) b.classList.add('correct');
+                });
+            }
+
+            document.getElementById('next-btn').style.display = "block";
+        };
+
+        window.nextQuestion = function() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContainer.style.display = "none";
+            resultCard.style.display = "block";
+            document.getElementById('final-score-text').innerText = 
+                `Отличная работа! Вы верно ответили на ${score} из ${currentQuestions.length} слов за ${currentDay}.`;
+        }
+
+        window.restartQuiz = function() {
+            startQuiz();
+        };
+
+        // Старт
+        renderTabs();
+        startQuiz();
+    </script>
+</body>
+</html>
