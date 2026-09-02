@@ -3,169 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning Journey - Главная</title>
+    <title>English Learning Journey</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <!-- MOBILE HEADER -->
-    <header class="mobile-header">
-        <button class="menu-button" onclick="openSidebar()" aria-label="Open menu">
-            ☰
-        </button>
-
-        <div class="mobile-title">
-            English Journey
-        </div>
-
-        <div class="mobile-spacer"></div>
-    </header>
-
-
-    <!-- SIDEBAR -->
-    <aside id="sidebar">
-
-        <!-- Кнопка закрытия на телефоне -->
-        <button
-            class="sidebar-close"
-            onclick="closeSidebar()"
-            aria-label="Close menu">
-            ←
-        </button>
-
-        <div class="logo">
-            English Journey
-        </div>
-
-        <ul class="nav-links">
-
-            <li class="active">
-                <a href="index.html">
-                    <span>🏠</span>
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="learn.html">
-                    <span>📚</span>
-                    <span>Learn</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="daily-tests.html">
-                    <span>📝</span>
-                    <span>Daily Tests</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="weekly-quiz.html">
-                    <span>🧠</span>
-                    <span>Weekly Quiz</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="practice.html">
-                    <span>✏️</span>
-                    <span>Practice</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="hard-level.html">
-                    <span>🔥</span>
-                    <span>Hard Level</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="beyond-words.html">
-                    <span>🌎</span>
-                    <span>Beyond Words</span>
-                </a>
-            </li>
-
-        </ul>
-
-    </aside>
-
-
-    <!-- DARK OVERLAY -->
-    <div
-        id="sidebar-overlay"
-        class="sidebar-overlay"
-        onclick="closeSidebar()">
+    <!-- Шапка для мобильных устройств -->
+    <div class="mobile-header">
+        <span style="font-weight: bold;">English Journey</span>
+        <button class="mobile-toggle" onclick="toggleMobileSidebar()">☰</button>
     </div>
 
+    <!-- Боковое меню -->
+    <aside id="sidebar">
+        <!-- Кнопка-стрелочка для ПК -->
+        <button class="toggle-btn" id="sidebar-toggle" onclick="toggleDesktopSidebar()">◀</button>
 
-    <!-- MAIN CONTENT -->
-    <main>
-
-        <h1>English Learning Journey</h1>
-
-        <p>
-            Добро пожаловать в систему интенсивного
-            изучения английского языка!
-        </p>
-
-        <!-- Здесь позже будет Dashboard -->
+        <div class="logo">English Journey</div>
         
+        <ul class="nav-links">
+            <li class="active">
+                <a href="index.html">
+                    <span class="icon">🏠</span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="learn.html">
+                    <span class="icon">📚</span>
+                    <span class="text">Learn</span>
+                </a>
+            </li>
+            <li>
+                <a href="daily-tests.html">
+                    <span class="icon">📝</span>
+                    <span class="text">Daily Tests</span>
+                </a>
+            </li>
+            <li>
+                <a href="weekly-quiz.html">
+                    <span class="icon">🧠</span>
+                    <span class="text">Weekly Quiz</span>
+                </a>
+            </li>
+            <li>
+                <a href="practice.html">
+                    <span class="icon">✏️</span>
+                    <span class="text">Practice</span>
+                </a>
+            </li>
+            <li>
+                <a href="hard-level.html">
+                    <span class="icon">🔥</span>
+                    <span class="text">Hard Level</span>
+                </a>
+            </li>
+            <li>
+                <a href="beyond-words.html">
+                    <span class="icon">🌎</span>
+                    <span class="text">Beyond Words</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main>
+        <h1>English Learning Journey</h1>
+        <p>Содержимое страницы...</p>
     </main>
 
-
-    <!-- MOBILE MENU SCRIPT -->
-    <script>
-
-        function openSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("sidebar-overlay");
-
-            sidebar.classList.add("active");
-            overlay.classList.add("active");
-
-            document.body.classList.add("menu-open");
-        }
-
-
-        function closeSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("sidebar-overlay");
-
-            sidebar.classList.remove("active");
-            overlay.classList.remove("active");
-
-            document.body.classList.remove("menu-open");
-        }
-
-
-        // Закрываем меню при переходе по ссылке
-        document.querySelectorAll(".nav-links a").forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                if (window.innerWidth <= 768) {
-                    closeSidebar();
-                }
-
-            });
-
-        });
-
-
-        // Закрытие меню клавишей Escape
-        document.addEventListener("keydown", (event) => {
-
-            if (event.key === "Escape") {
-                closeSidebar();
-            }
-
-        });
-
-    </script>
-
+    <script src="js/sidebar.js"></script>
 </body>
 </html>
