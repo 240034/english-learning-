@@ -73,9 +73,9 @@
         <div class="dashboard-stats">
             <div class="stat-card">
                 <p class="stat-title">Изучено слов</p>
-                <div class="stat-value">10 / 500</div>
+                <div class="stat-value" id="learned-words-count">0 / 500</div>
                 <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 2%;"></div>
+                    <div class="progress-bar" id="learned-words-bar" style="width: 0%;"></div>
                 </div>
             </div>
 
@@ -87,14 +87,14 @@
 
             <div class="stat-card">
                 <p class="stat-title">Текущий этап</p>
-                <div class="stat-value stage-value">1. 📚 Learn</div>
+                <div class="stat-value stage-value" id="current-stage">1. 📚 Learn</div>
                 <p class="stat-sub">Изучение слов</p>
             </div>
 
             <div class="stat-card">
                 <p class="stat-title">Серия дней</p>
-                <div class="stat-value">7 days 🔥</div>
-                <p class="stat-sub">Отличный темп!</p>
+                <div class="stat-value" id="user-streak">... 🔥</div>
+                <p class="stat-sub" id="streak-sub">Загрузка...</p>
             </div>
         </div>
 
@@ -109,9 +109,9 @@
                     <p>Изучение новых слов с помощью визуальных ассоциаций и озвучки.</p>
                 </div>
                 <div>
-                    <small>Прогресс: 10/10 слов дня</small>
+                    <small id="learn-progress-text">Прогресс: 0/10 слов дня</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 100%;"></div>
+                        <div class="progress-bar" id="learn-progress-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -123,9 +123,9 @@
                     <p>Ежедневный тест на закрепление изученных слов дня.</p>
                 </div>
                 <div>
-                    <small>Выполнено: 1 тест</small>
+                    <small id="daily-test-status">Не пройдено</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 25%;"></div>
+                        <div class="progress-bar" id="daily-test-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -137,9 +137,9 @@
                     <p>Итоговый комплексный тест по материалам всей недели.</p>
                 </div>
                 <div>
-                    <small>Не пройдено</small>
+                    <small id="weekly-quiz-status">Не пройдено</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 0%;"></div>
+                        <div class="progress-bar" id="weekly-quiz-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -151,9 +151,9 @@
                     <p>Закрепление слов в контексте: предложения и упражнения.</p>
                 </div>
                 <div>
-                    <small>Выполнено: 3/6 упражнений</small>
+                    <small id="practice-status">Выполнено: 0/6 упражнений</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 50%;"></div>
+                        <div class="progress-bar" id="practice-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -165,9 +165,9 @@
                     <p>Продвинутый уровень: самостоятельное составление предложений.</p>
                 </div>
                 <div>
-                    <small>Активно</small>
+                    <small id="hard-status">Доступно</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 10%;"></div>
+                        <div class="progress-bar" id="hard-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@
                 <div>
                     <small>Доступно 10 категорий</small>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 15%;"></div>
+                        <div class="progress-bar" style="width: 0%;"></div>
                     </div>
                 </div>
             </div>
@@ -191,22 +191,33 @@
     <script src="js/sidebar.js"></script>
 
     <script type="module">
-    import { auth, syncUserStreak } from './js/firebase-config.js';
-    import { signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { auth, syncUserStreak, getQuizResult } from './js/firebase-config.js';
+        import { signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            console.log("Авторизован анонимно! UID:", user.uid);
-            // Автоматически рассчитываем и сохраняем страйк
-            await syncUserStreak(user.uid);
-        } else {
-            try {
-                await signInAnonymously(auth);
-            } catch (error) {
-                console.error("Ошибка анонимного входа:", error);
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log("Авторизован анонимно! UID:", user.uid);
+                
+                // 1. Подсчет и обновление страйка
+                await syncUserStreak(user.uid);
+                document.getElementById('streak-sub').innerText = 'Отличный темп!';
+
+                // 2. Проверка прохождения Daily Test за сегодняшний день
+                const todayKey = new Date().toISOString().split('T')[0];
+                const dailyResult = await getQuizResult(user.uid, todayKey);
+                
+                if (dailyResult) {
+                    document.getElementById('daily-test-status').innerText = `Выполнено: ${dailyResult.score}/${dailyResult.total}`;
+                    document.getElementById('daily-test-bar').style.width = `${dailyResult.percentage}%`;
+                }
+            } else {
+                try {
+                    await signInAnonymously(auth);
+                } catch (error) {
+                    console.error("Ошибка анонимного входа:", error);
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
