@@ -3,47 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn — English Learning Journey</title>
+    <title>Learn — Изучение слов</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <aside>
+    <!-- Шапка для мобильных устройств -->
+    <div class="mobile-header">
+        <span style="font-weight: bold; font-size: 1.2rem; color: var(--primary-color);">English Journey</span>
+        <button class="mobile-toggle" onclick="toggleMobileSidebar()">☰</button>
+    </div>
+
+    <!-- Боковое меню (Sidebar) -->
+    <aside id="sidebar">
+        <button class="toggle-btn" id="sidebar-toggle" onclick="toggleDesktopSidebar()">◀</button>
         <div class="logo">English Journey</div>
         <ul class="nav-links">
-            <li><a href="index.html"><span>🏠</span> Home</a></li>
-            <li class="active"><a href="learn.html"><span>📚</span> Learn</a></li>
-            <li><a href="daily-tests.html"><span>📝</span> Daily Tests</a></li>
-            <li><a href="weekly-quiz.html"><span>🧠</span> Weekly Quiz</a></li>
-            <li><a href="practice.html"><span>✏️</span> Practice</a></li>
-            <li><a href="hard-level.html"><span>🔥</span> Hard Level</a></li>
-            <li><a href="beyond-words.html"><span>🌎</span> Beyond Words</a></li>
+            <li><a href="index.html"><span class="icon">🏠</span><span class="text">Home</span></a></li>
+            <li class="active"><a href="learn.html"><span class="icon">📚</span><span class="text">Learn</span></a></li>
+            <li><a href="daily-tests.html"><span class="icon">📝</span><span class="text">Daily Tests</span></a></li>
+            <li><a href="weekly-quiz.html"><span class="icon">🧠</span><span class="text">Weekly Quiz</span></a></li>
+            <li><a href="practice.html"><span class="icon">✏️</span><span class="text">Practice</span></a></li>
+            <li><a href="hard-level.html"><span class="icon">🔥</span><span class="text">Hard Level</span></a></li>
+            <li><a href="beyond-words.html"><span class="icon">🌎</span><span class="text">Beyond Words</span></a></li>
         </ul>
     </aside>
 
+    <!-- Основной контент -->
     <main>
-        <h1>1. 📚 Learn — Изучение слов</h1>
-        
-        <div class="grid" id="learn-cards-container">
-            <!-- 3D Flip Card -->
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80" class="word-img" alt="hardworking">
-                        <h3>hardworking</h3>
-                        <button class="sound-btn" onclick="speakWord(event, 'hardworking')">🔊</button>
-                    </div>
-                    <div class="flip-card-back">
-                        <h2 style="color: var(--accent-color);">hardworking</h2>
-                        <h3>трудолюбивый</h3>
-                        <p><i>"She is a hardworking student."</i></p>
-                        <button class="sound-btn" onclick="speakWord(event, 'hardworking')">🔊</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h1 class="page-title">1. 📚 Learn — Изучение слов</h1>
+        <p class="page-subtitle">Выберите дату для просмотра слов. Нажмите на карточку, чтобы перевернуть её.</p>
+
+        <!-- Табы выбора дней (динамически создаются JS) -->
+        <div class="date-tabs" id="date-tabs"></div>
+
+        <!-- Сетка флеш-карточек со словами -->
+        <div class="cards-grid" id="cards-grid"></div>
     </main>
 
-    <script src="js/speech.js"></script>
+    <script src="js/sidebar.js"></script>
+
+    <script type="module">
+        import { dailyWords } from './js/words-data.js';
+
+        let currentDay = Object.keys(dailyWords)[0]; // По умолчанию выбираем первый день
+
+        const tabsContainer = document.getElementById('date-tabs');
+        const cardsGrid = document.getElementById('cards-grid');
+
+        // Функция отрисовки табов дней
+        function renderTabs() {
+            tabsContainer.innerHTML = '';
+            Object.keys(dailyWords).forEach(dayKey => {
+                const wordsArray = dailyWords[dayKey];
+                const count = wordsArray.length;
+
+                const tab = document.createElement('div');
+                tab.className = `date-tab ${dayKey === currentDay ? 'active' : ''}`;
+                tab.onclick = () => selectDay(dayKey);
+
+                tab.innerHTML = `
+                    <div class="tab-info">
+                        <span class="tab-date">${dayKey}</span>
+                        <span class="tab-count">${count} words</span>
+                    </div>
+                `;
+                tabsContainer.appendChild(tab);
+            });
+        }
+
+        // Функция отрисовки флеш-карточек
+        function renderCards(dayKey) {
+            cardsGrid.innerHTML = '';
+            const words = dailyWords[dayKey] || [];
+
+            words.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flashcard';
+                card.onclick = () => card.classList.toggle('flipped');
+
+                card.innerHTML = `
+                    <div class="flashcard-inner">
+                        <!-- Лицевая сторона -->
+                        <div class="flashcard-front">
+                            <div class="card-image-wrapper">
+                                <img src="${item.image}" alt="${item.word}" loading="lazy">
+                            </div>
+                            <h3>${item.word}</h3>
+                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${item.audio}')">🔊</button>
+                            <span class="hint-text">Кликните, чтобы перевернуть</span>
+                        </div>
+                        <!-- Обратная сторона -->
+                        <div class="flashcard-back">
+                            <h3>${item.translation}</h3>
+                        </div>
+                    </div>
+                `;
+                cardsGrid.appendChild(card);
+            });
+        }
+
+        function selectDay(dayKey) {
+            currentDay = dayKey;
+            renderTabs();
+            renderCards(dayKey);
+        }
+
+        // Озвучка слов
+        window.playAudio = function(src) {
+            if (!src) return;
+            const audio = new Audio(src);
+            audio.play().catch(e => console.log("Ошибка воспроизведения звука:", e));
+        };
+
+        // Старт инициализации
+        renderTabs();
+        renderCards(currentDay);
+    </script>
 </body>
 </html>
