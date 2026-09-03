@@ -84,30 +84,21 @@
             display: block;
         }
         .sentence-box {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: #1e293b;
-            margin: 20px 0 12px 0;
+            margin: 24px 0 20px 0;
             line-height: 1.6;
-        }
-        .translation-subtext {
-            font-size: 1rem;
-            color: #64748b;
-            margin-bottom: 20px;
-            display: block;
-            background-color: #f8fafc;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border-left: 3px solid #ea580c;
+            font-weight: 500;
         }
         .hint-badge {
             display: inline-block;
             font-size: 0.85rem;
             color: #c2410c;
             background-color: #ffedd5;
-            padding: 4px 8px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         .input-box {
             width: 100%;
@@ -174,7 +165,7 @@
         .feedback-message {
             margin-top: 12px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -223,7 +214,6 @@
         import { dailyWords } from './js/words-data.js';
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Собираем все слова из всех дней в один массив
             let allWords = [];
             if (dailyWords) {
                 Object.values(dailyWords).forEach(dayArray => {
@@ -243,7 +233,6 @@
             const feedbackBox = document.getElementById('feedback');
             const nextBtn = document.getElementById('next-btn');
 
-            // Очистка текста от регистра и пунктуации
             function cleanText(text) {
                 if (!text) return "";
                 return text
@@ -253,29 +242,38 @@
                     .trim();
             }
 
-            // Формируем задания для Part 1 и Part 2 по всем имеющимся словам
+            function getSentenceForWord(item) {
+                const targetWord = item.word || item.english || "";
+                const rawExample = item.example || item.sentence || "";
+                
+                if (rawExample) {
+                    // Экранируем специальные символы для регулярного выражения
+                    const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+                    
+                    if (regex.test(rawExample)) {
+                        return rawExample.replace(regex, '________');
+                    }
+                    if (rawExample.includes('________') || rawExample.includes('_____')) {
+                        return rawExample;
+                    }
+                }
+                
+                // Если в объекте слова нет собственного предложения
+                const translation = item.translation || item.russian || "";
+                return `Translate and complete the sentence with context (${translation}): "________"`;
+            }
+
             function loadPartExercises(partNum) {
                 if (allWords.length === 0) return [];
 
                 return allWords.map(item => {
                     const wordStr = item.word || item.english || "";
-                    const transStr = item.translation || item.russian || "";
-                    
-                    // Формирование контекстного предложения
-                    let sentence = item.example || `Please complete this sentence using the target word.`;
-                    
-                    // Если предложение содержит искомое слово, заменяем его на пропуск _____
-                    const regex = new RegExp(`\\b${wordStr}\\b`, 'gi');
-                    if (regex.test(sentence)) {
-                        sentence = sentence.replace(regex, '_______');
-                    } else if (!sentence.includes('_______')) {
-                        sentence = `Meaning: "_______" — ${sentence}`;
-                    }
+                    const sentence = getSentenceForWord(item);
 
                     return {
                         part: partNum,
                         word: wordStr,
-                        translation: transStr,
                         sentence: sentence
                     };
                 });
@@ -309,15 +307,13 @@
 
                 tracker.textContent = `Упражнение ${currentIndex + 1} из ${currentExercises.length}`;
 
-                // --- PART 1: FILL IN THE BLANK ---
+                // PART 1: FILL IN THE BLANK
                 if (selectedPart === 1) {
                     typeLabel.textContent = "EX 1: FILL IN THE BLANK";
-                    
                     const firstLetter = current.word ? current.word.charAt(0).toLowerCase() : '';
 
                     contentBox.innerHTML = `
                         <div class="sentence-box">${current.sentence}</div>
-                        <div class="translation-subtext">Перевод: ${current.translation}</div>
                         <span class="hint-badge">Подсказка: первая буква [ ${firstLetter}... ]</span>
                         <input type="text" id="fill-input" class="input-box" placeholder="Напишите слово..." autocomplete="off">
                         <button id="check-fill-btn" class="submit-btn">Проверить</button>
@@ -345,13 +341,12 @@
                     });
                 }
 
-                // --- PART 2: CHOOSE THE BEST WORD ---
+                // PART 2: CHOOSE THE BEST WORD
                 else if (selectedPart === 2) {
                     typeLabel.textContent = "EX 2: CHOOSE THE BEST WORD";
 
                     contentBox.innerHTML = `
                         <div class="sentence-box">${current.sentence}</div>
-                        <div class="translation-subtext">Перевод: ${current.translation}</div>
                         <div id="options-grid" class="options-grid"></div>
                     `;
 
@@ -375,7 +370,6 @@
                                 feedbackBox.style.color = '#b91c1c';
                                 feedbackBox.textContent = `✗ Неверно. Правильный ответ: ${current.word}`;
                                 
-                                // Подсвечиваем верный вариант
                                 allBtns.forEach(b => {
                                     if (cleanText(b.textContent) === cleanText(current.word)) {
                                         b.classList.add('correct');
