@@ -3,219 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Learning Journey - Home</title>
+    <title>Easy English Audio</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .card-progress-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .status-in-progress {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        .status-completed {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #4caf50;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Easy English Audio</h1>
+            <p>Выберите модуль для практики</p>
+        </header>
 
-    <!-- Шапка для мобильных устройств -->
-    <div class="mobile-header">
-        <span style="font-weight: bold; font-size: 1.2rem; color: var(--primary-color);">English Journey</span>
-        <button class="mobile-toggle" onclick="toggleMobileSidebar()">☰</button>
+        <main class="modules-grid">
+            <!-- 1. Learn -->
+            <a href="learn.html" class="module-card">
+                <div class="card-icon">📚</div>
+                <h2>1. Learn</h2>
+                <p>Изучение новых слов с помощью визуальных ассоциаций и озвучки.</p>
+                
+                <div class="progress-info">
+                    <span id="learn-progress-text">Загрузка...</span>
+                    <div class="progress-bar-container">
+                        <div id="learn-progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 2. Flashcards (если есть) -->
+            <a href="flashcards.html" class="module-card">
+                <div class="card-icon">🎴</div>
+                <h2>2. Flashcards</h2>
+                <p>Быстрое повторение карточек для закрепления памяти.</p>
+            </a>
+
+            <!-- 3. Quiz / Test -->
+            <a href="quiz.html" class="module-card">
+                <div class="card-icon">🧠</div>
+                <h2>3. Quiz</h2>
+                <p>Проверка знаний слов через интерактивный тест.</p>
+            </a>
+
+            <!-- 4. Practice -->
+            <a href="practice.html" class="module-card">
+                <div class="card-icon">✏️</div>
+                <h2>4. Practice</h2>
+                <p>Закрепление слов в контексте: предложения и упражнения.</p>
+                
+                <div class="progress-info">
+                    <span id="practice-progress-text">Статус практики</span>
+                    <div class="progress-bar-container">
+                        <div id="practice-progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </a>
+        </main>
     </div>
 
-    <!-- Боковое меню (Sidebar) -->
-    <aside id="sidebar">
-        <!-- Кнопка-стрелочка для сворачивания на ПК -->
-        <button class="toggle-btn" id="sidebar-toggle" onclick="toggleDesktopSidebar()">◀</button>
-
-        <div class="logo">English Journey</div>
-
-        <ul class="nav-links">
-            <li class="active">
-                <a href="index.html">
-                    <span class="icon">🏠</span>
-                    <span class="text">Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="learn.html">
-                    <span class="icon">📚</span>
-                    <span class="text">Learn</span>
-                </a>
-            </li>
-            <li>
-                <a href="daily-tests.html">
-                    <span class="icon">📝</span>
-                    <span class="text">Daily Tests</span>
-                </a>
-            </li>
-            <li>
-                <a href="weekly-quiz.html">
-                    <span class="icon">🧠</span>
-                    <span class="text">Weekly Quiz</span>
-                </a>
-            </li>
-            <li>
-                <a href="practice.html">
-                    <span class="icon">✏️</span>
-                    <span class="text">Practice</span>
-                </a>
-            </li>
-            <li>
-                <a href="hard-level.html">
-                    <span class="icon">🔥</span>
-                    <span class="text">Hard Level</span>
-                </a>
-            </li>
-            <li>
-                <a href="beyond-words.html">
-                    <span class="icon">🌎</span>
-                    <span class="text">Beyond Words</span>
-                </a>
-            </li>
-        </ul>
-    </aside>
-
-    <!-- Основной контент страницы -->
-    <main>
-        <!-- Верхние карточки статистики -->
-        <div class="dashboard-stats">
-           <div class="stat-card">
-                <p class="stat-title">Изучено слов</p>
-                <div class="stat-value" id="learned-words-count">0 / 500</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="learned-words-bar" style="width: 0%;"></div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <p class="stat-title">Текущая неделя</p>
-                <div class="stat-value">Week 1</div>
-                <p class="stat-sub">September 1–7</p>
-            </div>
-
-            <div class="stat-card">
-                <p class="stat-title">Текущий этап</p>
-                <div class="stat-value stage-value" id="current-stage">1. 📚 Learn</div>
-                <p class="stat-sub">Изучение слов</p>
-            </div>
-
-            <div class="stat-card">
-                <p class="stat-title">Серия дней</p>
-                <div class="stat-value" id="user-streak">... 🔥</div>
-                <p class="stat-sub" id="streak-sub">Загрузка...</p>
-            </div>
-        </div>
-
-        <!-- Раздел карточек этапов обучения -->
-        <h2 class="section-title">Этапы обучения</h2>
-
-        <div class="stages-grid">
-            <div class="stage-card" onclick="window.location.href='learn.html'">
-                <div>
-                    <div class="stage-icon">📚</div>
-                    <h3>1. Learn</h3>
-                    <p>Изучение новых слов с помощью визуальных ассоциаций и озвучки.</p>
-                </div>
-                <div>
-                    <small id="learn-progress-text">Прогресс: 0/10 слов дня</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="learn-progress-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage-card" onclick="window.location.href='daily-tests.html'">
-                <div>
-                    <div class="stage-icon">📝</div>
-                    <h3>2. Daily Tests</h3>
-                    <p>Ежедневный тест на закрепление изученных слов дня.</p>
-                </div>
-                <div>
-                    <small id="daily-test-status">Не пройдено</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="daily-test-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage-card" onclick="window.location.href='weekly-quiz.html'">
-                <div>
-                    <div class="stage-icon">🧠</div>
-                    <h3>3. Weekly Quiz</h3>
-                    <p>Итоговый комплексный тест по материалам всей недели.</p>
-                </div>
-                <div>
-                    <small id="weekly-quiz-status">Не пройдено</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="weekly-quiz-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage-card" onclick="window.location.href='practice.html'">
-                <div>
-                    <div class="stage-icon">✏️</div>
-                    <h3>4. Practice</h3>
-                    <p>Закрепление слов в контексте: предложения и упражнения.</p>
-                </div>
-                <div>
-                    <small id="practice-status">Выполнено: 0/6 упражнений</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="practice-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage-card" onclick="window.location.href='hard-level.html'">
-                <div>
-                    <div class="stage-icon">🔥</div>
-                    <h3>5. Hard Level</h3>
-                    <p>Продвинутый уровень: самостоятельное составление предложений.</p>
-                </div>
-                <div>
-                    <small id="hard-status">Доступно</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="hard-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stage-card" onclick="window.location.href='beyond-words.html'">
-                <div>
-                    <div class="stage-icon">🌎</div>
-                    <h3>6. Beyond Words</h3>
-                    <p>Тематический словарь для расширения лексического запаса.</p>
-                </div>
-                <div>
-                    <small>Доступно 10 категорий</small>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="js/sidebar.js"></script>
-
     <script type="module">
-        import { auth, syncUserStreak, getQuizResult } from './js/firebase-config.js';
-        import { signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { dailyWords } from './js/words-data.js';
 
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                console.log("Авторизован анонимно! UID:", user.uid);
-                
-                // 1. Подсчет и обновление страйка
-                await syncUserStreak(user.uid);
-                document.getElementById('streak-sub').innerText = 'Отличный темп!';
+        document.addEventListener('DOMContentLoaded', () => {
+            // Определение текущего дня (или по умолчанию первого доступного)
+            const days = Object.keys(dailyWords);
+            const currentDay = localStorage.getItem('selectedDay') || days[0];
+            const totalWords = dailyWords[currentDay] ? dailyWords[currentDay].length : 0;
 
-                // 2. Проверка прохождения Daily Test за сегодняшний день
-                const todayKey = new Date().toISOString().split('T')[0];
-                const dailyResult = await getQuizResult(user.uid, todayKey);
-                
-                if (dailyResult) {
-                    document.getElementById('daily-test-status').innerText = `Выполнено: ${dailyResult.score}/${dailyResult.total}`;
-                    document.getElementById('daily-test-bar').style.width = `${dailyResult.percentage}%`;
-                }
+            // 1. Расчет прогресса для "Learn"
+            const learnedWords = JSON.parse(localStorage.getItem(`learned_${currentDay}`) || '[]');
+            const learnedCount = learnedWords.length;
+            const learnPercent = totalWords > 0 ? Math.round((learnedCount / totalWords) * 100) : 0;
+
+            const learnText = document.getElementById('learn-progress-text');
+            const learnBar = document.getElementById('learn-progress-bar');
+
+            if (learnPercent === 100) {
+                learnText.innerHTML = `Изучено: ${learnedCount} из ${totalWords} <span class="card-progress-badge status-completed">✓ Завершено</span>`;
             } else {
-                try {
-                    await signInAnonymously(auth);
-                } catch (error) {
-                    console.error("Ошибка анонимного входа:", error);
-                }
+                learnText.innerHTML = `Изучено: ${learnedCount} из ${totalWords} слов (${learnPercent}%)`;
+            }
+            learnBar.style.width = `${learnPercent}%`;
+
+            // 2. Расчет прогресса для "Practice"
+            const practiceScore = localStorage.getItem(`practice_score_${currentDay}`);
+            const practiceText = document.getElementById('practice-progress-text');
+            const practiceBar = document.getElementById('practice-progress-bar');
+
+            if (practiceScore !== null) {
+                const [passed, total] = practiceScore.split('/').map(Number);
+                const practicePercent = total > 0 ? Math.round((passed / total) * 100) : 0;
+                
+                practiceText.innerHTML = `Пройдено: ${passed} из ${total} упражнений <span class="card-progress-badge ${practicePercent === 100 ? 'status-completed' : 'status-in-progress'}">${practicePercent}%</span>`;
+                practiceBar.style.width = `${practicePercent}%`;
+            } else {
+                practiceText.innerHTML = `Не начато <span class="card-progress-badge status-in-progress">0%</span>`;
+                practiceBar.style.width = `0%`;
             }
         });
     </script>
