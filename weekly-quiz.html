@@ -3,124 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Quiz — Easy English Audio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Weekly Quiz — English Journey</title>
+    <link rel="stylesheet" href="./css/style.css">
     <style>
-        .quiz-container {
-            max-width: 600px;
-            margin: 20px auto;
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        /* Макет с сайдбаром */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
         }
-        .part-selector {
-            margin: 20px 0;
-            text-align: center;
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            border-right: 1px solid #eaeaea;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
         }
-        .part-selector select {
-            padding: 8px 16px;
+        .sidebar-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            padding-left: 12px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .nav-item:hover {
+            background-color: #f7fafc;
+        }
+        .nav-item.active {
+            background-color: #f3e8ff;
+            color: #7e22ce;
+            font-weight: 600;
+        }
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+        .page-header h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .part-selector-container {
+            margin: 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .part-selector-container select {
+            padding: 10px 16px;
             font-size: 1rem;
             border-radius: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid #cbd5e1;
+            background-color: white;
+            outline: none;
+            cursor: pointer;
         }
-        .quiz-header {
-            color: #666;
-            margin-bottom: 15px;
+        .quiz-card-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 650px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f1f5f9;
+        }
+        .tracker {
+            color: #64748b;
             font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: block;
         }
-        .quiz-card h2 {
-            font-size: 2rem;
+        .target-word {
+            font-size: 2.2rem;
+            color: #1e293b;
             text-align: center;
-            margin-bottom: 24px;
-            color: #2c3e50;
+            margin-bottom: 28px;
         }
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 20px;
         }
         .option-btn {
-            padding: 14px 16px;
+            padding: 16px;
             font-size: 1rem;
-            border: 2px solid #f0f0f0;
-            background-color: #fafafa;
-            border-radius: 10px;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
+            color: #334155;
+            text-align: center;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
         }
         .option-btn.correct {
-            background-color: #e8f5e9 !important;
-            border-color: #4caf50 !important;
-            color: #2e7d32 !important;
+            background-color: #f0fdf4 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            font-weight: 600;
         }
         .option-btn.wrong {
-            background-color: #ffebee !important;
-            border-color: #ef5350 !important;
-            color: #c62828 !important;
+            background-color: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
         }
         #next-btn {
             width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            background-color: #4caf50;
+            margin-top: 20px;
+            padding: 14px;
+            background-color: #8b5cf6;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             display: none;
+        }
+        #next-btn:hover {
+            background-color: #7c3aed;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Weekly Quiz</h1>
-            <p id="current-date-display">Загрузка даты...</p>
-        </header>
+    <div class="app-layout">
+        <!-- Боковая панель (Sidebar) -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">English Journey</div>
+            <a href="./index.html" class="nav-item">🏠 Home</a>
+            <a href="./learn.html" class="nav-item">📚 Learn</a>
+            <a href="./daily-tests.html" class="nav-item">📝 Daily Tests</a>
+            <a href="./weekly-quiz.html" class="nav-item active">🧠 Weekly Quiz</a>
+            <a href="./practice.html" class="nav-item">✏️ Practice</a>
+            <a href="./hard-level.html" class="nav-item">🔥 Hard Level</a>
+            <a href="./beyond-words.html" class="nav-item">🌐 Beyond Words</a>
+        </aside>
 
-        <div class="part-selector">
-            <label for="part-select">Выберите часть недели: </label>
-            <select id="part-select">
-                <option value="1">Part 1 (Слова 1–100)</option>
-                <option value="2">Part 2 (Слова 101–200)</option>
-                <option value="3">Part 3 (Слова 201–300)</option>
-                <option value="4">Part 4 (Слова 301–400)</option>
-                <option value="5">Part 5 (Слова 501–500)</option>
-            </select>
-        </div>
+        <!-- Основной контент -->
+        <main class="main-content">
+            <header class="page-header">
+                <h1>3. 🧠 Weekly Quiz — Итоговый тест недели</h1>
+                <p id="date-subtitle" style="color: #64748b;">Загрузка даты...</p>
+            </header>
 
-        <main class="quiz-container">
-            <div class="quiz-header">
-                <span id="question-tracker">Загрузка вопроса...</span>
+            <div class="part-selector-container">
+                <label for="part-select" style="font-weight: 600; color: #334155;">Часть теста:</label>
+                <select id="part-select">
+                    <option value="1">Part 1 (Слова 1–100)</option>
+                    <option value="2">Part 2 (Слова 101–200)</option>
+                    <option value="3">Part 3 (Слова 201–300)</option>
+                    <option value="4">Part 4 (Слова 301–400)</option>
+                    <option value="5">Part 5 (Слова 401–500)</option>
+                </select>
             </div>
 
-            <div class="quiz-card">
-                <h2 id="target-word">--</h2>
+            <div class="quiz-card-wrapper">
+                <span id="question-tracker" class="tracker">Загрузка...</span>
+                <h2 id="target-word" class="target-word">--</h2>
                 <div id="options-container" class="options-grid"></div>
+                <button id="next-btn">Следующее слово</button>
             </div>
-
-            <button id="next-btn">Следующее слово</button>
         </main>
     </div>
 
-    <script>
-        // Подключите ваш основной массив слов сюда или проверьте правильность загрузки
-        const weeklyWords = [
-            { word: "appreciate", translation: "ценить" },
-            { word: "so", translation: "так / поэтому" },
-            { word: "environment", translation: "окружающая среда" },
-            { word: "opportunity", translation: "возможность" },
-            { word: "challenge", translation: "вызов" }
-            // Все 500 слов
-        ];
+    <script type="module">
+        import { dailyWords } from './js/words-data.js';
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Собираем 500 слов из всех дней в один общий массив
+            let allWords = [];
+            if (dailyWords) {
+                Object.values(dailyWords).forEach(dayArray => {
+                    if (Array.isArray(dayArray)) {
+                        allWords.push(...dayArray);
+                    }
+                });
+            }
+
             let currentPartWords = [];
             let currentIndex = 0;
-            
-            const dateDisplay = document.getElementById('current-date-display');
+
+            const dateSubtitle = document.getElementById('date-subtitle');
             const partSelect = document.getElementById('part-select');
             const targetWordEl = document.getElementById('target-word');
             const optionsContainer = document.getElementById('options-container');
@@ -129,13 +208,14 @@
 
             const today = new Date();
             const dateString = today.toISOString().split('T')[0];
-            dateDisplay.textContent = `Сегодня: ${today.toLocaleDateString('ru-RU')}`;
+            dateSubtitle.textContent = `Слова за период (Всего доступно слов: ${allWords.length})`;
 
             function seededRandom(seed) {
                 let x = Math.sin(seed++) * 10000;
                 return x - Math.floor(x);
             }
 
+            // Перемешивание по сиду текущей даты
             function shuffleByDate(array, dateStr) {
                 const shuffled = [...array];
                 let numericSeed = dateStr.split('-').reduce((acc, val) => acc + parseInt(val), 0);
@@ -152,8 +232,11 @@
                 const startIndex = (partNumber - 1) * wordsPerPage;
                 const endIndex = startIndex + wordsPerPage;
 
-                const rawPartWords = weeklyWords.slice(startIndex, endIndex);
-                currentPartWords = shuffleByDate(rawPartWords.length > 0 ? rawPartWords : weeklyWords, dateString);
+                // Берём срез 100 слов для нужной части
+                const rawPartWords = allWords.slice(startIndex, endIndex);
+
+                // Перемешиваем порядок ежедневным алгоритмом
+                currentPartWords = shuffleByDate(rawPartWords, dateString);
                 
                 currentIndex = 0;
                 renderQuestion();
@@ -163,6 +246,12 @@
                 nextBtn.style.display = 'none';
                 optionsContainer.innerHTML = '';
 
+                if (currentPartWords.length === 0) {
+                    targetWordEl.textContent = "Слова не найдены";
+                    questionTracker.textContent = "";
+                    return;
+                }
+
                 if (currentIndex >= currentPartWords.length) {
                     targetWordEl.textContent = "Part завершен! 🎉";
                     questionTracker.textContent = "";
@@ -170,7 +259,7 @@
                 }
 
                 const currentWord = currentPartWords[currentIndex];
-                targetWordEl.textContent = currentWord.word;
+                targetWordEl.textContent = currentWord.word || currentWord.english;
                 questionTracker.textContent = `Вопрос ${currentIndex + 1} из ${currentPartWords.length}`;
 
                 const options = generateOptions(currentWord);
@@ -185,13 +274,15 @@
             }
 
             function generateOptions(correctWord) {
-                const options = [{ translation: correctWord.translation, isCorrect: true }];
+                const correctTranslation = correctWord.translation || correctWord.russian;
+                const options = [{ translation: correctTranslation, isCorrect: true }];
                 
-                while (options.length < 4 && options.length <= weeklyWords.length) {
-                    const randomIndex = Math.floor(Math.random() * weeklyWords.length);
-                    const randomTranslation = weeklyWords[randomIndex].translation;
+                while (options.length < 4 && options.length <= allWords.length) {
+                    const randomIndex = Math.floor(Math.random() * allWords.length);
+                    const randomItem = allWords[randomIndex];
+                    const randomTranslation = randomItem.translation || randomItem.russian;
                     
-                    if (!options.some(o => o.translation === randomTranslation)) {
+                    if (randomTranslation && !options.some(o => o.translation === randomTranslation)) {
                         options.push({ translation: randomTranslation, isCorrect: false });
                     }
                 }
