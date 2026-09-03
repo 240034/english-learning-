@@ -5,6 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Quiz — Easy English Audio</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .quiz-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .part-selector {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .part-selector select {
+            padding: 8px 16px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .quiz-header {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .quiz-card h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 24px;
+            color: #2c3e50;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .option-btn {
+            padding: 14px 16px;
+            font-size: 1rem;
+            border: 2px solid #f0f0f0;
+            background-color: #fafafa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-btn.correct {
+            background-color: #e8f5e9 !important;
+            border-color: #4caf50 !important;
+            color: #2e7d32 !important;
+        }
+        .option-btn.wrong {
+            background-color: #ffebee !important;
+            border-color: #ef5350 !important;
+            color: #c62828 !important;
+        }
+        #next-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,34 +80,149 @@
             <p id="current-date-display">Загрузка даты...</p>
         </header>
 
-        <!-- Выбор Part (по 100 слов) -->
         <div class="part-selector">
-            <label for="part-select">Выберите часть недели:</label>
+            <label for="part-select">Выберите часть недели: </label>
             <select id="part-select">
                 <option value="1">Part 1 (Слова 1–100)</option>
                 <option value="2">Part 2 (Слова 101–200)</option>
                 <option value="3">Part 3 (Слова 201–300)</option>
                 <option value="4">Part 4 (Слова 301–400)</option>
-                <option value="5">Part 5 (Слова 401–500)</option>
+                <option value="5">Part 5 (Слова 501–500)</option>
             </select>
         </div>
 
         <main class="quiz-container">
             <div class="quiz-header">
-                <span id="question-tracker">Вопрос 1 из 100</span>
+                <span id="question-tracker">Загрузка вопроса...</span>
             </div>
 
             <div class="quiz-card">
-                <h2 id="target-word">Word</h2>
-                <div id="options-container" class="options-grid">
-                    <!-- Варианты ответов генерируются в JS -->
-                </div>
+                <h2 id="target-word">--</h2>
+                <div id="options-container" class="options-grid"></div>
             </div>
 
-            <button id="next-btn" class="btn" style="display: none;">Следующее слово</button>
+            <button id="next-btn">Следующее слово</button>
         </main>
     </div>
 
-    <script type="module" src="js/weekly-quiz.js"></script>
+    <script>
+        // Подключите ваш основной массив слов сюда или проверьте правильность загрузки
+        const weeklyWords = [
+            { word: "appreciate", translation: "ценить" },
+            { word: "so", translation: "так / поэтому" },
+            { word: "environment", translation: "окружающая среда" },
+            { word: "opportunity", translation: "возможность" },
+            { word: "challenge", translation: "вызов" }
+            // Все 500 слов
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentPartWords = [];
+            let currentIndex = 0;
+            
+            const dateDisplay = document.getElementById('current-date-display');
+            const partSelect = document.getElementById('part-select');
+            const targetWordEl = document.getElementById('target-word');
+            const optionsContainer = document.getElementById('options-container');
+            const questionTracker = document.getElementById('question-tracker');
+            const nextBtn = document.getElementById('next-btn');
+
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+            dateDisplay.textContent = `Сегодня: ${today.toLocaleDateString('ru-RU')}`;
+
+            function seededRandom(seed) {
+                let x = Math.sin(seed++) * 10000;
+                return x - Math.floor(x);
+            }
+
+            function shuffleByDate(array, dateStr) {
+                const shuffled = [...array];
+                let numericSeed = dateStr.split('-').reduce((acc, val) => acc + parseInt(val), 0);
+                
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(seededRandom(numericSeed + i) * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            function loadPart(partNumber) {
+                const wordsPerPage = 100;
+                const startIndex = (partNumber - 1) * wordsPerPage;
+                const endIndex = startIndex + wordsPerPage;
+
+                const rawPartWords = weeklyWords.slice(startIndex, endIndex);
+                currentPartWords = shuffleByDate(rawPartWords.length > 0 ? rawPartWords : weeklyWords, dateString);
+                
+                currentIndex = 0;
+                renderQuestion();
+            }
+
+            function renderQuestion() {
+                nextBtn.style.display = 'none';
+                optionsContainer.innerHTML = '';
+
+                if (currentIndex >= currentPartWords.length) {
+                    targetWordEl.textContent = "Part завершен! 🎉";
+                    questionTracker.textContent = "";
+                    return;
+                }
+
+                const currentWord = currentPartWords[currentIndex];
+                targetWordEl.textContent = currentWord.word;
+                questionTracker.textContent = `Вопрос ${currentIndex + 1} из ${currentPartWords.length}`;
+
+                const options = generateOptions(currentWord);
+
+                options.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = option.translation;
+                    btn.addEventListener('click', () => checkAnswer(btn, option.isCorrect));
+                    optionsContainer.appendChild(btn);
+                });
+            }
+
+            function generateOptions(correctWord) {
+                const options = [{ translation: correctWord.translation, isCorrect: true }];
+                
+                while (options.length < 4 && options.length <= weeklyWords.length) {
+                    const randomIndex = Math.floor(Math.random() * weeklyWords.length);
+                    const randomTranslation = weeklyWords[randomIndex].translation;
+                    
+                    if (!options.some(o => o.translation === randomTranslation)) {
+                        options.push({ translation: randomTranslation, isCorrect: false });
+                    }
+                }
+
+                return options.sort(() => Math.random() - 0.5);
+            }
+
+            function checkAnswer(selectedBtn, isCorrect) {
+                const allBtns = optionsContainer.querySelectorAll('.option-btn');
+                allBtns.forEach(btn => btn.disabled = true);
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                } else {
+                    selectedBtn.classList.add('wrong');
+                }
+
+                nextBtn.style.display = 'block';
+            }
+
+            partSelect.addEventListener('change', (e) => {
+                loadPart(parseInt(e.target.value));
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex++;
+                renderQuestion();
+            });
+
+            loadPart(1);
+        });
+    </script>
 </body>
 </html>
