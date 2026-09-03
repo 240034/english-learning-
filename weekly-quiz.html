@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Quiz — Easy English Audio</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weekly Quiz</h1>
+            <p id="current-date-display">Загрузка даты...</p>
+        </header>
 
+        <!-- Выбор Part (по 100 слов) -->
+        <div class="part-selector">
+            <label for="part-select">Выберите часть недели:</label>
+            <select id="part-select">
+                <option value="1">Part 1 (Слова 1–100)</option>
+                <option value="2">Part 2 (Слова 101–200)</option>
+                <option value="3">Part 3 (Слова 201–300)</option>
+                <option value="4">Part 4 (Слова 301–400)</option>
+                <option value="5">Part 5 (Слова 401–500)</option>
+            </select>
+        </div>
+
+        <main class="quiz-container">
+            <div class="quiz-header">
+                <span id="question-tracker">Вопрос 1 из 100</span>
+            </div>
+
+            <div class="quiz-card">
+                <h2 id="target-word">Word</h2>
+                <div id="options-container" class="options-grid">
+                    <!-- Варианты ответов генерируются в JS -->
+                </div>
+            </div>
+
+            <button id="next-btn" class="btn" style="display: none;">Следующее слово</button>
+        </main>
+    </div>
+
+    <script type="module" src="js/weekly-quiz.js"></script>
+</body>
+</html>
