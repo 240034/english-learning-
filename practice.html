@@ -51,6 +51,21 @@
             padding: 40px;
             background-color: #f8f9fa;
         }
+        .part-selector-container {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .part-selector-container select {
+            padding: 10px 16px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background-color: white;
+            outline: none;
+            cursor: pointer;
+        }
         .practice-card {
             background: #ffffff;
             border-radius: 16px;
@@ -69,40 +84,30 @@
             display: block;
         }
         .sentence-box {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: #1e293b;
-            margin: 20px 0 28px 0;
+            margin: 20px 0;
             line-height: 1.6;
         }
-        .blank-placeholder {
-            display: inline-block;
-            border-bottom: 2px solid #ea580c;
-            min-width: 80px;
-            text-align: center;
-            color: #ea580c;
-            font-weight: 600;
-            padding: 0 4px;
+        .input-box {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            margin-top: 12px;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease;
         }
-        .audio-btn {
-            background: #fff7ed;
-            border: 1px solid #ffedd5;
-            color: #ea580c;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .audio-btn:hover {
-            background: #ffedd5;
+        .input-box:focus {
+            border-color: #ea580c;
         }
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+            margin-top: 16px;
         }
         .option-btn {
             padding: 14px 16px;
@@ -119,20 +124,33 @@
             background-color: #f1f5f9;
             border-color: #cbd5e1;
         }
-        .option-btn.correct {
+        .option-btn.correct, .input-correct {
             background-color: #f0fdf4 !important;
             border-color: #22c55e !important;
             color: #15803d !important;
-            font-weight: 600;
         }
-        .option-btn.wrong {
+        .option-btn.wrong, .input-wrong {
             background-color: #fef2f2 !important;
             border-color: #ef4444 !important;
             color: #b91c1c !important;
         }
-        #next-btn {
+        .words-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .word-badge {
+            background-color: #ffedd5;
+            color: #c2410c;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .submit-btn, #next-btn {
             width: 100%;
-            margin-top: 24px;
+            margin-top: 20px;
             padding: 14px;
             background-color: #ea580c;
             color: white;
@@ -141,16 +159,23 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
+        }
+        .submit-btn:hover, #next-btn:hover {
+            background-color: #c2410c;
+        }
+        #next-btn {
             display: none;
         }
-        #next-btn:hover {
-            background-color: #c2410c;
+        .feedback-message {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
     <div class="app-layout">
-        <!-- Боковая панель -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-logo">English Journey</div>
             <a href="./index.html" class="nav-item">🏠 Home</a>
@@ -162,26 +187,28 @@
             <a href="./beyond-words.html" class="nav-item">🌐 Beyond Words</a>
         </aside>
 
-        <!-- Основной контент -->
+        <!-- Main Content -->
         <main class="main-content">
-            <header class="page-header" style="margin-bottom: 24px;">
+            <header class="page-header">
                 <h1 style="font-size: 2.2rem; color: #2c3e50;">4. ✏️ Practice — Практика контекста</h1>
                 <p style="color: #64748b;">Закрепляйте слова прямо в предложениях</p>
             </header>
 
+            <div class="part-selector-container">
+                <label for="part-select" style="font-weight: 600; color: #334155;">Выберите часть:</label>
+                <select id="part-select">
+                    <option value="1">Part 1</option>
+                    <option value="2">Part 2</option>
+                    <option value="3">Part 3</option>
+                </select>
+            </div>
+
             <div class="practice-card">
-                <span id="exercise-tracker" style="color: #64748b; font-size: 0.9rem;">Упражнение 1 из 6</span>
-                <span id="exercise-type" class="exercise-type">Fill in the blank</span>
-                
-                <button id="audio-speak-btn" class="audio-btn" style="display: none;">
-                    🔊 Озвучить предложение
-                </button>
+                <span id="exercise-tracker" style="color: #64748b; font-size: 0.9rem;">Упражнение 1</span>
+                <span id="exercise-type" class="exercise-type">--</span>
 
-                <div id="sentence-container" class="sentence-box">
-                    Loading sentence...
-                </div>
-
-                <div id="options-container" class="options-grid"></div>
+                <div id="exercise-content"></div>
+                <div id="feedback" class="feedback-message"></div>
 
                 <button id="next-btn">Следующее упражнение</button>
             </div>
@@ -191,129 +218,242 @@
     <script type="module">
         import { dailyWords } from './js/words-data.js';
 
-        // Пример упражнений на контекст для практики
-        const practiceExercises = [
-            {
-                type: "Заполни пропуск",
-                sentence: "I really _____ your help with this difficult task.",
-                targetWord: "appreciate",
-                options: ["appreciate", "challenge", "environment", "opportunity"],
-                translation: "Я очень ценю твою помощь с этой сложной задачей."
-            },
-            {
-                type: "Контекст и озвучка",
-                sentence: "Protecting the _____ is important for our future.",
-                targetWord: "environment",
-                options: ["opportunity", "environment", "so", "appreciate"],
-                translation: "Защита окружающей среды важна для нашего будущего."
-            },
-            {
-                type: "Заполни пропуск",
-                sentence: "This new job is a great _____ to learn new skills.",
-                targetWord: "opportunity",
-                options: ["challenge", "opportunity", "environment", "so"],
-                translation: "Эта новая работа — отличная возможность научиться новому."
-            },
-            {
-                type: "Контекст и озвучка",
-                sentence: "It was a huge _____, but we succeeded in the end.",
-                targetWord: "challenge",
-                options: ["challenge", "appreciate", "so", "environment"],
-                translation: "Это был огромный вызов, но в конце мы справились."
-            }
-        ];
-
         document.addEventListener('DOMContentLoaded', () => {
-            let currentIndex = 0;
-            let score = 0;
-
-            const tracker = document.getElementById('exercise-tracker');
-            const typeLabel = document.getElementById('exercise-type');
-            const sentenceBox = document.getElementById('sentence-container');
-            const optionsContainer = document.getElementById('options-container');
-            const nextBtn = document.getElementById('next-btn');
-            const audioBtn = document.getElementById('audio-speak-btn');
-
-            function renderExercise() {
-                nextBtn.style.display = 'none';
-                optionsContainer.innerHTML = '';
-
-                if (currentIndex >= practiceExercises.length) {
-                    sentenceBox.innerHTML = "Практика завершена! 🎉";
-                    typeLabel.textContent = "РЕЗУЛЬТАТ";
-                    tracker.textContent = "";
-                    audioBtn.style.display = 'none';
-                    
-                    // Сохраняем прогресс для главной страницы (index.html)
-                    const selectedDay = localStorage.getItem('selectedDay') || 'day1';
-                    localStorage.setItem(`practice_score_${selectedDay}`, `${score}/${practiceExercises.length}`);
-                    return;
-                }
-
-                const current = practiceExercises[currentIndex];
-                tracker.textContent = `Упражнение ${currentIndex + 1} из ${practiceExercises.length}`;
-                typeLabel.textContent = current.type;
-
-                // Заменяем целевое слово на пропуск _____
-                const formattedSentence = current.sentence.replace(
-                    current.targetWord, 
-                    `<span class="blank-placeholder">?</span>`
-                );
-                
-                sentenceBox.innerHTML = `${formattedSentence}<br><small style="font-size: 1rem; color: #64748b; font-weight: normal;">${current.translation}</small>`;
-
-                // Показываем кнопку озвучки
-                audioBtn.style.display = 'inline-flex';
-                audioBtn.onclick = () => speakText(current.sentence.replace('_____', current.targetWord));
-
-                // Создаем варианты ответов
-                current.options.forEach(option => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.textContent = option;
-                    btn.addEventListener('click', () => checkAnswer(btn, option === current.targetWord, current.targetWord));
-                    optionsContainer.appendChild(btn);
+            // Собираем все слова в один массив
+            let allWords = [];
+            if (dailyWords) {
+                Object.values(dailyWords).forEach(dayArray => {
+                    if (Array.isArray(dayArray)) {
+                        allWords.push(...dayArray);
+                    }
                 });
             }
 
-            function checkAnswer(selectedBtn, isCorrect, targetWord) {
-                const allBtns = optionsContainer.querySelectorAll('.option-btn');
-                allBtns.forEach(btn => btn.disabled = true);
+            let currentPartExercises = [];
+            let currentIndex = 0;
 
-                if (isCorrect) {
-                    selectedBtn.classList.add('correct');
-                    score++;
-                } else {
-                    selectedBtn.classList.add('wrong');
-                    // Подсвечиваем верный вариант
-                    allBtns.forEach(btn => {
-                        if (btn.textContent === targetWord) btn.classList.add('correct');
+            const partSelect = document.getElementById('part-select');
+            const tracker = document.getElementById('exercise-tracker');
+            const typeLabel = document.getElementById('exercise-type');
+            const contentBox = document.getElementById('exercise-content');
+            const feedbackBox = document.getElementById('feedback');
+            const nextBtn = document.getElementById('next-btn');
+
+            // Нормализация текста: убирает всю пунктуацию и делает lowercase
+            function cleanText(text) {
+                return text
+                    .toLowerCase()
+                    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’]/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            // Нарезка всех слов на 3 равных Part и генерация 3 типов упражнений
+            function generateExercisesForPart(partNum) {
+                if (allWords.length === 0) return [];
+
+                const total = allWords.length;
+                const partSize = Math.ceil(total / 3);
+                const startIndex = (partNum - 1) * partSize;
+                const endIndex = Math.min(startIndex + partSize, total);
+                const partWords = allWords.slice(startIndex, endIndex);
+
+                const exercises = [];
+
+                // Цикл создает 3 вида упражнений для слов текущей части
+                for (let i = 0; i < partWords.length; i++) {
+                    const item = partWords[i];
+                    const wordStr = item.word || item.english || "";
+                    const transStr = item.translation || item.russian || "";
+                    const exampleSentence = item.example || `I need to use the word _____ in this sentence.`;
+
+                    // Экс 1: Fill in the blank (Ввод вручную)
+                    exercises.push({
+                        type: "Ex 1: Fill in the blank",
+                        kind: "fill",
+                        word: wordStr,
+                        translation: transStr,
+                        sentence: exampleSentence
+                    });
+
+                    // Экс 2: Выбор наилучшего подходящего слова
+                    exercises.push({
+                        type: "Ex 2: Choose the best word",
+                        kind: "choice",
+                        word: wordStr,
+                        translation: transStr,
+                        sentence: exampleSentence
+                    });
+
+                    // Экс 3: Составление предложения (минимум 2 слова из списка)
+                    if (i % 2 === 0) {
+                        const word2Item = partWords[(i + 1) % partWords.length];
+                        const word2Str = word2Item.word || word2Item.english || "";
+                        exercises.push({
+                            type: "Ex 3: Create a sentence",
+                            kind: "create",
+                            requiredWords: [wordStr, word2Str],
+                            translation: `Составьте предложение, используя оба слова: ${wordStr} и ${word2Str}`
+                        });
+                    }
+                }
+
+                return exercises;
+            }
+
+            function loadPart(partNum) {
+                currentPartExercises = generateExercisesForPart(partNum);
+                currentIndex = 0;
+                renderExercise();
+            }
+
+            function renderExercise() {
+                nextBtn.style.display = 'none';
+                feedbackBox.textContent = '';
+                contentBox.innerHTML = '';
+
+                if (currentPartExercises.length === 0) {
+                    contentBox.innerHTML = "<p>Слова не найдены в words-data.js</p>";
+                    return;
+                }
+
+                if (currentIndex >= currentPartExercises.length) {
+                    contentBox.innerHTML = "<h2 style='color: #22c55e;'>Часть завершена! 🎉</h2>";
+                    tracker.textContent = "";
+                    typeLabel.textContent = "РЕЗУЛЬТАТ";
+                    return;
+                }
+
+                const current = currentPartExercises[currentIndex];
+                tracker.textContent = `Упражнение ${currentIndex + 1} из ${currentPartExercises.length}`;
+                typeLabel.textContent = current.type;
+
+                // Отрисовка Экс 1: Fill in the blank (ручной ввод)
+                if (current.kind === 'fill') {
+                    const sentenceWithBlank = current.sentence.includes('_____') 
+                        ? current.sentence.replace('_____', '_______') 
+                        : `_____ (${current.translation})`;
+
+                    contentBox.innerHTML = `
+                        <div class="sentence-box">${sentenceWithBlank}</div>
+                        <p style="color: #64748b; font-size: 0.95rem;">Введите пропущенное слово на английском:</p>
+                        <input type="text" id="fill-input" class="input-box" placeholder="Напишите слово..." autocomplete="off">
+                        <button id="check-fill-btn" class="submit-btn">Проверить</button>
+                    `;
+
+                    document.getElementById('check-fill-btn').addEventListener('click', () => {
+                        const inputEl = document.getElementById('fill-input');
+                        const userVal = cleanText(inputEl.value);
+                        const correctVal = cleanText(current.word);
+
+                        if (userVal === correctVal) {
+                            inputEl.classList.add('input-correct');
+                            feedbackBox.style.color = '#15803d';
+                            feedbackBox.textContent = '✓ Верно!';
+                        } else {
+                            inputEl.classList.add('input-wrong');
+                            feedbackBox.style.color = '#b91c1c';
+                            feedbackBox.textContent = `✗ Неверно. Правильный ответ: ${current.word}`;
+                        }
+                        document.getElementById('check-fill-btn').disabled = true;
+                        nextBtn.style.display = 'block';
                     });
                 }
 
-                // Вставляем правильное слово в пропуск
-                const placeholder = sentenceBox.querySelector('.blank-placeholder');
-                if (placeholder) {
-                    placeholder.textContent = targetWord;
+                // Отрисовка Экс 2: Выбор слова из списка
+                else if (current.kind === 'choice') {
+                    const sentenceWithBlank = current.sentence.includes('_____') 
+                        ? current.sentence.replace('_____', '_______') 
+                        : `_____ (${current.translation})`;
+
+                    contentBox.innerHTML = `
+                        <div class="sentence-box">${sentenceWithBlank}</div>
+                        <div id="options-grid" class="options-grid"></div>
+                    `;
+
+                    const grid = document.getElementById('options-grid');
+                    const options = generateOptions(current.word);
+
+                    options.forEach(optWord => {
+                        const btn = document.createElement('button');
+                        btn.className = 'option-btn';
+                        btn.textContent = optWord;
+                        btn.addEventListener('click', () => {
+                            const allBtns = grid.querySelectorAll('.option-btn');
+                            allBtns.forEach(b => b.disabled = true);
+
+                            if (cleanText(optWord) === cleanText(current.word)) {
+                                btn.classList.add('correct');
+                                feedbackBox.style.color = '#15803d';
+                                feedbackBox.textContent = '✓ Отлично!';
+                            } else {
+                                btn.classList.add('wrong');
+                                feedbackBox.style.color = '#b91c1c';
+                                feedbackBox.textContent = `✗ Правильный ответ: ${current.word}`;
+                            }
+                            nextBtn.style.display = 'block';
+                        });
+                        grid.appendChild(btn);
+                    });
                 }
 
-                nextBtn.style.display = 'block';
-            }
+                // Отрисовка Экс 3: Составление предложения с минимум 2 словами
+                else if (current.kind === 'create') {
+                    const badges = current.requiredWords
+                        .map(w => `<span class="word-badge">${w}</span>`)
+                        .join('');
 
-            function speakText(text) {
-                if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = 'en-US';
-                    window.speechSynthesis.speak(utterance);
+                    contentBox.innerHTML = `
+                        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 8px;">Используйте оба этих слова в своем предложении:</p>
+                        <div class="words-badge-container">${badges}</div>
+                        <textarea id="create-textarea" class="input-box" rows="3" placeholder="Напишите предложение здесь..."></textarea>
+                        <button id="check-create-btn" class="submit-btn">Проверить предложение</button>
+                    `;
+
+                    document.getElementById('check-create-btn').addEventListener('click', () => {
+                        const areaEl = document.getElementById('create-textarea');
+                        const userText = cleanText(areaEl.value);
+
+                        // Проверяем наличие обоих слов без учета регистра и знаков
+                        const missingWords = current.requiredWords.filter(w => !userText.includes(cleanText(w)));
+
+                        if (missingWords.length === 0) {
+                            areaEl.classList.add('input-correct');
+                            feedbackBox.style.color = '#15803d';
+                            feedbackBox.textContent = '✓ Супер! Оба слова использованы верно.';
+                        } else {
+                            areaEl.classList.add('input-wrong');
+                            feedbackBox.style.color = '#b91c1c';
+                            feedbackBox.textContent = `✗ Не хватает следующих слов в предложении: ${missingWords.join(', ')}`;
+                        }
+                        document.getElementById('check-create-btn').disabled = true;
+                        nextBtn.style.display = 'block';
+                    });
                 }
             }
+
+            function generateOptions(correctWord) {
+                const opts = [correctWord];
+                while (opts.length < 4 && opts.length < allWords.length) {
+                    const randIndex = Math.floor(Math.random() * allWords.length);
+                    const randWord = allWords[randIndex].word || allWords[randIndex].english;
+                    if (randWord && !opts.some(o => cleanText(o) === cleanText(randWord))) {
+                        opts.push(randWord);
+                    }
+                }
+                return opts.sort(() => Math.random() - 0.5);
+            }
+
+            partSelect.addEventListener('change', (e) => {
+                loadPart(parseInt(e.target.value));
+            });
 
             nextBtn.addEventListener('click', () => {
                 currentIndex++;
                 renderExercise();
             });
 
-            renderExercise();
+            loadPart(1);
         });
     </script>
 </body>
