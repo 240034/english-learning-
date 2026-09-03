@@ -1,1 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice — English Journey</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            border-right: 1px solid #eaeaea;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .sidebar-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            padding-left: 12px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .nav-item:hover {
+            background-color: #f7fafc;
+        }
+        .nav-item.active {
+            background-color: #fff7ed;
+            color: #ea580c;
+            font-weight: 600;
+        }
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+        .practice-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 650px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f1f5f9;
+        }
+        .exercise-type {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #ea580c;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .sentence-box {
+            font-size: 1.3rem;
+            color: #1e293b;
+            margin: 20px 0 28px 0;
+            line-height: 1.6;
+        }
+        .blank-placeholder {
+            display: inline-block;
+            border-bottom: 2px solid #ea580c;
+            min-width: 80px;
+            text-align: center;
+            color: #ea580c;
+            font-weight: 600;
+            padding: 0 4px;
+        }
+        .audio-btn {
+            background: #fff7ed;
+            border: 1px solid #ffedd5;
+            color: #ea580c;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .audio-btn:hover {
+            background: #ffedd5;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .option-btn {
+            padding: 14px 16px;
+            font-size: 1rem;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #334155;
+            text-align: center;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        .option-btn.correct {
+            background-color: #f0fdf4 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            font-weight: 600;
+        }
+        .option-btn.wrong {
+            background-color: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+        }
+        #next-btn {
+            width: 100%;
+            margin-top: 24px;
+            padding: 14px;
+            background-color: #ea580c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: none;
+        }
+        #next-btn:hover {
+            background-color: #c2410c;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">English Journey</div>
+            <a href="./index.html" class="nav-item">🏠 Home</a>
+            <a href="./learn.html" class="nav-item">📚 Learn</a>
+            <a href="./daily-tests.html" class="nav-item">📝 Daily Tests</a>
+            <a href="./weekly-quiz.html" class="nav-item">🧠 Weekly Quiz</a>
+            <a href="./practice.html" class="nav-item active">✏️ Practice</a>
+            <a href="./hard-level.html" class="nav-item">🔥 Hard Level</a>
+            <a href="./beyond-words.html" class="nav-item">🌐 Beyond Words</a>
+        </aside>
 
+        <!-- Основной контент -->
+        <main class="main-content">
+            <header class="page-header" style="margin-bottom: 24px;">
+                <h1 style="font-size: 2.2rem; color: #2c3e50;">4. ✏️ Practice — Практика контекста</h1>
+                <p style="color: #64748b;">Закрепляйте слова прямо в предложениях</p>
+            </header>
+
+            <div class="practice-card">
+                <span id="exercise-tracker" style="color: #64748b; font-size: 0.9rem;">Упражнение 1 из 6</span>
+                <span id="exercise-type" class="exercise-type">Fill in the blank</span>
+                
+                <button id="audio-speak-btn" class="audio-btn" style="display: none;">
+                    🔊 Озвучить предложение
+                </button>
+
+                <div id="sentence-container" class="sentence-box">
+                    Loading sentence...
+                </div>
+
+                <div id="options-container" class="options-grid"></div>
+
+                <button id="next-btn">Следующее упражнение</button>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { dailyWords } from './js/words-data.js';
+
+        // Пример упражнений на контекст для практики
+        const practiceExercises = [
+            {
+                type: "Заполни пропуск",
+                sentence: "I really _____ your help with this difficult task.",
+                targetWord: "appreciate",
+                options: ["appreciate", "challenge", "environment", "opportunity"],
+                translation: "Я очень ценю твою помощь с этой сложной задачей."
+            },
+            {
+                type: "Контекст и озвучка",
+                sentence: "Protecting the _____ is important for our future.",
+                targetWord: "environment",
+                options: ["opportunity", "environment", "so", "appreciate"],
+                translation: "Защита окружающей среды важна для нашего будущего."
+            },
+            {
+                type: "Заполни пропуск",
+                sentence: "This new job is a great _____ to learn new skills.",
+                targetWord: "opportunity",
+                options: ["challenge", "opportunity", "environment", "so"],
+                translation: "Эта новая работа — отличная возможность научиться новому."
+            },
+            {
+                type: "Контекст и озвучка",
+                sentence: "It was a huge _____, but we succeeded in the end.",
+                targetWord: "challenge",
+                options: ["challenge", "appreciate", "so", "environment"],
+                translation: "Это был огромный вызов, но в конце мы справились."
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentIndex = 0;
+            let score = 0;
+
+            const tracker = document.getElementById('exercise-tracker');
+            const typeLabel = document.getElementById('exercise-type');
+            const sentenceBox = document.getElementById('sentence-container');
+            const optionsContainer = document.getElementById('options-container');
+            const nextBtn = document.getElementById('next-btn');
+            const audioBtn = document.getElementById('audio-speak-btn');
+
+            function renderExercise() {
+                nextBtn.style.display = 'none';
+                optionsContainer.innerHTML = '';
+
+                if (currentIndex >= practiceExercises.length) {
+                    sentenceBox.innerHTML = "Практика завершена! 🎉";
+                    typeLabel.textContent = "РЕЗУЛЬТАТ";
+                    tracker.textContent = "";
+                    audioBtn.style.display = 'none';
+                    
+                    // Сохраняем прогресс для главной страницы (index.html)
+                    const selectedDay = localStorage.getItem('selectedDay') || 'day1';
+                    localStorage.setItem(`practice_score_${selectedDay}`, `${score}/${practiceExercises.length}`);
+                    return;
+                }
+
+                const current = practiceExercises[currentIndex];
+                tracker.textContent = `Упражнение ${currentIndex + 1} из ${practiceExercises.length}`;
+                typeLabel.textContent = current.type;
+
+                // Заменяем целевое слово на пропуск _____
+                const formattedSentence = current.sentence.replace(
+                    current.targetWord, 
+                    `<span class="blank-placeholder">?</span>`
+                );
+                
+                sentenceBox.innerHTML = `${formattedSentence}<br><small style="font-size: 1rem; color: #64748b; font-weight: normal;">${current.translation}</small>`;
+
+                // Показываем кнопку озвучки
+                audioBtn.style.display = 'inline-flex';
+                audioBtn.onclick = () => speakText(current.sentence.replace('_____', current.targetWord));
+
+                // Создаем варианты ответов
+                current.options.forEach(option => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = option;
+                    btn.addEventListener('click', () => checkAnswer(btn, option === current.targetWord, current.targetWord));
+                    optionsContainer.appendChild(btn);
+                });
+            }
+
+            function checkAnswer(selectedBtn, isCorrect, targetWord) {
+                const allBtns = optionsContainer.querySelectorAll('.option-btn');
+                allBtns.forEach(btn => btn.disabled = true);
+
+                if (isCorrect) {
+                    selectedBtn.classList.add('correct');
+                    score++;
+                } else {
+                    selectedBtn.classList.add('wrong');
+                    // Подсвечиваем верный вариант
+                    allBtns.forEach(btn => {
+                        if (btn.textContent === targetWord) btn.classList.add('correct');
+                    });
+                }
+
+                // Вставляем правильное слово в пропуск
+                const placeholder = sentenceBox.querySelector('.blank-placeholder');
+                if (placeholder) {
+                    placeholder.textContent = targetWord;
+                }
+
+                nextBtn.style.display = 'block';
+            }
+
+            function speakText(text) {
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'en-US';
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex++;
+                renderExercise();
+            });
+
+            renderExercise();
+        });
+    </script>
+</body>
+</html>
