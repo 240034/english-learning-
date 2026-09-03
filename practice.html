@@ -86,19 +86,23 @@
         .sentence-box {
             font-size: 1.3rem;
             color: #1e293b;
-            margin: 24px 0 20px 0;
+            margin: 20px 0 16px 0;
             line-height: 1.6;
             font-weight: 500;
         }
+        .hint-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
         .hint-badge {
-            display: inline-block;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #c2410c;
             background-color: #ffedd5;
             padding: 6px 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
-            margin-bottom: 16px;
         }
         .input-box {
             width: 100%;
@@ -242,15 +246,23 @@
                     .trim();
             }
 
-            function getSentenceForWord(item) {
-                const targetWord = item.word || item.english || "";
-                const rawExample = item.example || item.sentence || "";
-                
+            // Набор естественных шаблонов предложений
+            const contextTemplates = [
+                "It is important to remember the word ________ in everyday conversation.",
+                "She told me that ________ is very essential for us.",
+                "Can you explain what ________ means in this context?",
+                "We need to focus on ________ when we practice English.",
+                "I always try to use ________ whenever I speak.",
+                "They discussed the concept of ________ during the lesson."
+            ];
+
+            function getSentenceForWord(item, index) {
+                const targetWord = item.word || item.english || item.title || "";
+                const rawExample = item.example || item.sentence || item.context || "";
+
                 if (rawExample) {
-                    // Экранируем специальные символы для регулярного выражения
-                    const escapedWord = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
-                    
+                    const escaped = targetWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`\\b${escaped}\\b`, 'gi');
                     if (regex.test(rawExample)) {
                         return rawExample.replace(regex, '________');
                     }
@@ -258,22 +270,24 @@
                         return rawExample;
                     }
                 }
-                
-                // Если в объекте слова нет собственного предложения
-                const translation = item.translation || item.russian || "";
-                return `Translate and complete the sentence with context (${translation}): "________"`;
+
+                // Используем динамический шаблон
+                const template = contextTemplates[index % contextTemplates.length];
+                return template;
             }
 
             function loadPartExercises(partNum) {
                 if (allWords.length === 0) return [];
 
-                return allWords.map(item => {
-                    const wordStr = item.word || item.english || "";
-                    const sentence = getSentenceForWord(item);
+                return allWords.map((item, index) => {
+                    const wordStr = item.word || item.english || item.title || "";
+                    const transStr = item.translation || item.russian || item.meaning || "";
+                    const sentence = getSentenceForWord(item, index);
 
                     return {
                         part: partNum,
                         word: wordStr,
+                        translation: transStr,
                         sentence: sentence
                     };
                 });
@@ -314,7 +328,10 @@
 
                     contentBox.innerHTML = `
                         <div class="sentence-box">${current.sentence}</div>
-                        <span class="hint-badge">Подсказка: первая буква [ ${firstLetter}... ]</span>
+                        <div class="hint-container">
+                            <span class="hint-badge">💡 Перевод: "${current.translation}"</span>
+                            <span class="hint-badge">🔤 Первая буква: [ ${firstLetter}... ]</span>
+                        </div>
                         <input type="text" id="fill-input" class="input-box" placeholder="Напишите слово..." autocomplete="off">
                         <button id="check-fill-btn" class="submit-btn">Проверить</button>
                     `;
@@ -347,6 +364,9 @@
 
                     contentBox.innerHTML = `
                         <div class="sentence-box">${current.sentence}</div>
+                        <div class="hint-container">
+                            <span class="hint-badge">💡 Перевод: "${current.translation}"</span>
+                        </div>
                         <div id="options-grid" class="options-grid"></div>
                     `;
 
@@ -387,7 +407,7 @@
                 const opts = [correctWord];
                 while (opts.length < 4 && opts.length < allWords.length) {
                     const randIndex = Math.floor(Math.random() * allWords.length);
-                    const randWord = allWords[randIndex].word || allWords[randIndex].english;
+                    const randWord = allWords[randIndex].word || allWords[randIndex].english || allWords[randIndex].title;
                     if (randWord && !opts.some(o => cleanText(o) === cleanText(randWord))) {
                         opts.push(randWord);
                     }
