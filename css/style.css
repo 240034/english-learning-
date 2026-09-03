@@ -343,6 +343,129 @@ body.sidebar-collapsed main {
     margin-bottom: 24px;
 }
 
+/* Основные стили для селектора частей (Part 1 - 5) */
+.part-selector {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.part-selector label {
+    font-weight: 600;
+    margin-right: 10px;
+    color: #333;
+}
+
+.part-selector select {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.part-selector select:focus {
+    border-color: #4caf50;
+}
+
+/* Контейнер карточки квиза */
+.quiz-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.quiz-card h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 24px;
+    color: #2c3e50;
+}
+
+/* Сетка вариантов ответов */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 480px) {
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Кнопки ответов */
+.option-btn {
+    padding: 14px 16px;
+    font-size: 1rem;
+    border: 2px solid #f0f0f0;
+    background-color: #fafafa;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: #333;
+}
+
+.option-btn:hover:not(:disabled) {
+    background-color: #f0f4f8;
+    border-color: #d0d7de;
+}
+
+/* Подсветка правильного и неправильного ответов */
+.option-btn.correct {
+    background-color: #e8f5e9 !important;
+    border-color: #4caf50 !important;
+    color: #2e7d32 !important;
+    font-weight: bold;
+}
+
+.option-btn.wrong {
+    background-color: #ffebee !important;
+    border-color: #ef5350 !important;
+    color: #c62828 !important;
+}
+
+.option-btn:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+/* Кнопка "Следующее слово" */
+#next-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#next-btn:hover {
+    background-color: #43a047;
+}
+
 /* Mobile Layout Adaptation */
 .mobile-header {
     display: none;
