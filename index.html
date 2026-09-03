@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy English Audio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <style>
         .card-progress-badge {
             display: inline-block;
@@ -12,7 +12,7 @@
             border-radius: 12px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 6px;
         }
         .status-in-progress {
             background-color: #e3f2fd;
@@ -36,6 +36,9 @@
             background-color: #4caf50;
             transition: width 0.3s ease;
         }
+        .progress-info {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -46,8 +49,7 @@
         </header>
 
         <main class="modules-grid">
-            <!-- 1. Learn -->
-            <a href="learn.html" class="module-card">
+            <a href="./learn.html" class="module-card">
                 <div class="card-icon">📚</div>
                 <h2>1. Learn</h2>
                 <p>Изучение новых слов с помощью визуальных ассоциаций и озвучки.</p>
@@ -60,22 +62,19 @@
                 </div>
             </a>
 
-            <!-- 2. Flashcards (если есть) -->
-            <a href="flashcards.html" class="module-card">
+            <a href="./flashcards.html" class="module-card">
                 <div class="card-icon">🎴</div>
                 <h2>2. Flashcards</h2>
                 <p>Быстрое повторение карточек для закрепления памяти.</p>
             </a>
 
-            <!-- 3. Quiz / Test -->
-            <a href="quiz.html" class="module-card">
+            <a href="./quiz.html" class="module-card">
                 <div class="card-icon">🧠</div>
                 <h2>3. Quiz</h2>
                 <p>Проверка знаний слов через интерактивный тест.</p>
             </a>
 
-            <!-- 4. Practice -->
-            <a href="practice.html" class="module-card">
+            <a href="./practice.html" class="module-card">
                 <div class="card-icon">✏️</div>
                 <h2>4. Practice</h2>
                 <p>Закрепление слов в контексте: предложения и упражнения.</p>
@@ -94,12 +93,12 @@
         import { dailyWords } from './js/words-data.js';
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Определение текущего дня (или по умолчанию первого доступного)
             const days = Object.keys(dailyWords);
             const currentDay = localStorage.getItem('selectedDay') || days[0];
-            const totalWords = dailyWords[currentDay] ? dailyWords[currentDay].length : 0;
+            const currentWords = dailyWords[currentDay] || [];
+            const totalWords = currentWords.length;
 
-            // 1. Расчет прогресса для "Learn"
+            // Расчет прогресса Learn
             const learnedWords = JSON.parse(localStorage.getItem(`learned_${currentDay}`) || '[]');
             const learnedCount = learnedWords.length;
             const learnPercent = totalWords > 0 ? Math.round((learnedCount / totalWords) * 100) : 0;
@@ -107,14 +106,14 @@
             const learnText = document.getElementById('learn-progress-text');
             const learnBar = document.getElementById('learn-progress-bar');
 
-            if (learnPercent === 100) {
+            if (learnPercent === 100 && totalWords > 0) {
                 learnText.innerHTML = `Изучено: ${learnedCount} из ${totalWords} <span class="card-progress-badge status-completed">✓ Завершено</span>`;
             } else {
                 learnText.innerHTML = `Изучено: ${learnedCount} из ${totalWords} слов (${learnPercent}%)`;
             }
             learnBar.style.width = `${learnPercent}%`;
 
-            // 2. Расчет прогресса для "Practice"
+            // Расчет прогресса Practice
             const practiceScore = localStorage.getItem(`practice_score_${currentDay}`);
             const practiceText = document.getElementById('practice-progress-text');
             const practiceBar = document.getElementById('practice-progress-bar');
