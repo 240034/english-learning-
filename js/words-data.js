@@ -2,7 +2,7 @@
 
 export const dailyWords = {
 
-    "September 1": [
+    "1": [
 
         {
             word: "It's dark outside",
@@ -822,7 +822,7 @@ export const dailyWords = {
     ],
 
 
-    "September 2": [
+    "2": [
 
         {
             word: "Do everything quickly",
