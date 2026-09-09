@@ -143,6 +143,11 @@
                         image: item.image,
                         audio: item.audio,
                         forms: item.forms,
+                        formTranslations: item.formTranslations || {
+                            v1: item.translation,
+                            v2: "согнул", // здесь можно будет указать свои переводы в words-data.js
+                            v3: "согнутый"
+                        },
                         isIrregular: true
                     }));
                 }
@@ -153,12 +158,11 @@
                 card.className = 'flashcard';
                 card.onclick = () => card.classList.toggle('flipped');
 
-                // Формируем контент для лица и изнанки в зависимости от типа слова
                 let frontContent = '';
                 let backContent = '';
 
                 if (item.isIrregular && item.forms) {
-                    // Лицевая сторона для неправильных глаголов (все 3 формы рядом)
+                    // Лицевая сторона (три формы в ряд)
                     frontContent = `
                         <div class="card-image-wrapper">
                             <img src="${item.image}" alt="${item.word}" loading="lazy">
@@ -167,14 +171,15 @@
                         <button class="audio-btn" onclick="event.stopPropagation(); playIrregularAudio('${item.forms.v1}', '${item.forms.v2}', '${item.forms.v3}', '${item.audio}')">🔊</button>
                         <span class="hint-text">Кликните, чтобы перевернуть</span>
                     `;
-                    // Обратная сторона с переводами/формами
+                    
+                    // Обратная сторона: главный фиолетовый перевод сверху + детальные формы с переводами снизу
                     backContent = `
-                        <h3>${item.translation}</h3>
-                        <p style="margin-top: 10px; color: gray; font-size: 0.95rem;">
-                            V1: ${item.forms.v1}<br>
-                            V2: ${item.forms.v2}<br>
-                            V3: ${item.forms.v3}
-                        </p>
+                        <h3 style="margin-bottom: 15px;">${item.translation}</h3>
+                        <div style="text-align: left; display: inline-block; font-size: 0.95rem; color: #555; line-height: 1.6;">
+                            <div><b>V1:</b> ${item.forms.v1} — ${item.formTranslations.v1}</div>
+                            <div><b>V2:</b> ${item.forms.v2} — ${item.formTranslations.v2}</div>
+                            <div><b>V3:</b> ${item.forms.v3} — ${item.formTranslations.v3}</div>
+                        </div>
                     `;
                 } else {
                     // Обычная карточка (для дней)
@@ -206,35 +211,28 @@
             audio.play().catch(e => console.log("Ошибка воспроизведения звука:", e));
         };
 
-        // Озвучка трех форм с интервалом в 1 секунду (через синтезатор речи браузера SpeechSynthesis)
+        // Озвучка трех форм с интервалом в 1 секунду
         window.playIrregularAudio = function(v1, v2, v3, fallbackAudio) {
-            // Если поддерживается синтезатор речи, озвучиваем каждое слово по очереди с паузой 1 сек
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Очищаем предыдущие очереди
+                window.speechSynthesis.cancel();
 
                 const utter1 = new SpeechSynthesisUtterance(v1);
                 utter1.lang = 'en-US';
-                
                 const utter2 = new SpeechSynthesisUtterance(v2);
                 utter2.lang = 'en-US';
-
                 const utter3 = new SpeechSynthesisUtterance(v3);
                 utter3.lang = 'en-US';
 
-                // Запускаем первое слово
                 window.speechSynthesis.speak(utter1);
 
-                // Второе слово через 1 секунду (1000 мс)
                 setTimeout(() => {
                     window.speechSynthesis.speak(utter2);
                 }, 1000);
 
-                // Третье слово через 2 секунды (2000 мс)
                 setTimeout(() => {
                     window.speechSynthesis.speak(utter3);
                 }, 2000);
             } else if (fallbackAudio) {
-                // Запасной вариант, если синтезатор недоступен
                 playAudio(fallbackAudio);
             }
         };
