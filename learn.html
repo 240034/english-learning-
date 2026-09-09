@@ -32,9 +32,9 @@
     <!-- Основной контент -->
     <main>
         <h1 class="page-title">1. 📚 Learn — Изучение слов</h1>
-        <p class="page-subtitle">Выберите дату для просмотра слов. Нажмите на карточку, чтобы перевернуть её.</p>
+        <p class="page-subtitle">Выберите день или категорию глаголов для просмотра. Нажмите на карточку, чтобы перевернуть её.</p>
 
-        <!-- Табы выбора дней (динамически создаются JS) -->
+        <!-- Табы выбора (динамически создаются JS) -->
         <div class="date-tabs" id="date-tabs"></div>
 
         <!-- Сетка флеш-карточек со словами -->
@@ -44,23 +44,33 @@
     <script src="js/sidebar.js"></script>
 
     <script type="module">
-        import { dailyWords } from './js/words-data.js';
+        import { dailyWords, irregularVerbGroups } from './js/words-data.js';
 
-        let currentDay = Object.keys(dailyWords)[0]; // По умолчанию выбираем первый день
+        // Состояние выбора: тип источника ('daily' или 'irregular')
+        let activeSource = 'daily'; 
+        let currentDay = Object.keys(dailyWords)[0]; 
+        let currentGroupKey = Object.keys(irregularVerbGroups)[0];
 
         const tabsContainer = document.getElementById('date-tabs');
         const cardsGrid = document.getElementById('cards-grid');
 
-        // Функция отрисовки табов дней
+        // Функция отрисовки вкладок (и дни, и группы глаголов)
         function renderTabs() {
             tabsContainer.innerHTML = '';
+
+            // 1. Рисуем вкладки дней из dailyWords
             Object.keys(dailyWords).forEach(dayKey => {
                 const wordsArray = dailyWords[dayKey];
                 const count = wordsArray.length;
 
                 const tab = document.createElement('div');
-                tab.className = `date-tab ${dayKey === currentDay ? 'active' : ''}`;
-                tab.onclick = () => selectDay(dayKey);
+                tab.className = `date-tab ${activeSource === 'daily' && currentDay === dayKey ? 'active' : ''}`;
+                tab.onclick = () => {
+                    activeSource = 'daily';
+                    currentDay = dayKey;
+                    renderTabs();
+                    renderCards();
+                };
 
                 tab.innerHTML = `
                     <div class="tab-info">
@@ -70,14 +80,52 @@
                 `;
                 tabsContainer.appendChild(tab);
             });
+
+            // 2. Рисуем вкладки групп из irregularVerbGroups
+            Object.keys(irregularVerbGroups).forEach(groupKey => {
+                const group = irregularVerbGroups[groupKey];
+                const count = group.words.length;
+
+                const tab = document.createElement('div');
+                tab.className = `date-tab ${activeSource === 'irregular' && currentGroupKey === groupKey ? 'active' : ''}`;
+                tab.onclick = () => {
+                    activeSource = 'irregular';
+                    currentGroupKey = groupKey;
+                    renderTabs();
+                    renderCards();
+                };
+
+                tab.innerHTML = `
+                    <div class="tab-info">
+                        <span class="tab-date">${group.title}</span>
+                        <span class="tab-count">${count} words</span>
+                    </div>
+                `;
+                tabsContainer.appendChild(tab);
+            });
         }
 
         // Функция отрисовки флеш-карточек
-        function renderCards(dayKey) {
+        function renderCards() {
             cardsGrid.innerHTML = '';
-            const words = dailyWords[dayKey] || [];
+            let wordsToRender = [];
 
-            words.forEach(item => {
+            if (activeSource === 'daily') {
+                wordsToRender = dailyWords[currentDay] || [];
+            } else {
+                // Преобразуем структуру irregularVerbGroups под формат карточки
+                const group = irregularVerbGroups[currentGroupKey];
+                if (group && group.words) {
+                    wordsToRender = group.words.map(item => ({
+                        word: item.word,
+                        translation: `${item.translation}<br><small style="color: gray;">V2: ${item.forms.v2} | V3: ${item.forms.v3}</small>`,
+                        image: item.image,
+                        audio: item.audio
+                    }));
+                }
+            }
+
+            wordsToRender.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'flashcard';
                 card.onclick = () => card.classList.toggle('flipped');
@@ -103,12 +151,6 @@
             });
         }
 
-        function selectDay(dayKey) {
-            currentDay = dayKey;
-            renderTabs();
-            renderCards(dayKey);
-        }
-
         // Озвучка слов
         window.playAudio = function(src) {
             if (!src) return;
@@ -116,9 +158,9 @@
             audio.play().catch(e => console.log("Ошибка воспроизведения звука:", e));
         };
 
-        // Старт инициализации
+        // Старт инициализации страницы
         renderTabs();
-        renderCards(currentDay);
+        renderCards();
     </script>
 </body>
 </html>
