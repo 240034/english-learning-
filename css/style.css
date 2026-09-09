@@ -466,68 +466,8 @@ body.sidebar-collapsed main {
     background-color: #43a047;
 }
 
-/* Mobile Layout Adaptation */
-.mobile-header {
-    display: none;
-}
-
-@media (max-width: 1024px) {
-    .dashboard-stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .stages-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    aside {
-        transform: translateX(-100%);
-        width: var(--sidebar-width) !important;
-    }
-
-    aside.mobile-open {
-        transform: translateX(0);
-    }
-
-    .toggle-btn {
-        display: none;
-    }
-
-    .mobile-header {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 60px;
-        background: var(--panel-bg);
-        border-bottom: 1px solid var(--border-color);
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        z-index: 99;
-    }
-
-    .mobile-toggle {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-
-    main {
-        margin-left: 0 !important;
-        padding: 80px 20px 20px 20px;
-    }
-
-    .dashboard-stats, .stages-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* ==========================================
-   LEARN PAGE STYLES (Вынесены из media-query)
+   LEARN PAGE STYLES
    ========================================== */
 
 .date-tabs {
@@ -577,14 +517,11 @@ body.sidebar-collapsed main {
     color: var(--text-muted);
 }
 
-/* Flashcards Grid */
-/* Flashcards Grid - одна колонка */
+/* Flashcards Grid (на компьютере красивая сетка) */
 .cards-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Ровно 1 колонка на всю ширину */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 24px;
-    max-width: 600px; /* Чтобы карточки не растягивались слишком сильно на широких экранах */
-    margin: 0 auto;    /* Центрируем колонку */
 }
 
 /* 3D Card Flip Effect */
@@ -682,4 +619,72 @@ body.sidebar-collapsed main {
     font-size: 1.5rem;
     color: var(--accent-color);
     font-weight: bold;
+}
+
+/* ==========================================
+   MOBILE MEDIA QUERIES (Адаптивность)
+   ========================================== */
+
+.mobile-header {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .stages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    aside {
+        transform: translateX(-100%);
+        width: var(--sidebar-width) !important;
+    }
+
+    aside.mobile-open {
+        transform: translateX(0);
+    }
+
+    .toggle-btn {
+        display: none;
+    }
+
+    .mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: var(--panel-bg);
+        border-bottom: 1px solid var(--border-color);
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 99;
+    }
+
+    .mobile-toggle {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    main {
+        margin-left: 0 !important;
+        padding: 80px 20px 20px 20px;
+    }
+
+    .dashboard-stats, .stages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* На телефоне карточки выстраиваются ровно в 1 колонку */
+    .cards-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
