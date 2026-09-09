@@ -1,5 +1,4 @@
 export const dailyWords = {
-    // Дни, которые уже были
     "1": [
         {
             word: "It's dark outside",
@@ -716,6 +715,7 @@ export const dailyWords = {
             sentence: "Traveling and meeting new people helps you ________."
         }
     ],
+
     "2": [
         {
             word: "Do everything quickly",
@@ -1403,251 +1403,418 @@ export const dailyWords = {
             audio: "audio/wet_food.mp3",
             sentence: "My cat likes ________ more than dry food."
         }
-    ],
-
-    // Новые группы с неправильными глаголами из ваших конспектов:
-
-    "Irregular: -ent / -t endings": [
-        {
-            word: "bend",
-            translation: "сгибать",
-            forms: { v1: "bend", v2: "bent", v3: "bent" },
-            image: "images/bend.jpg",
-            audio: "audio/bend.mp3",
-            sentence: "He ________ the wire carefully."
-        },
-        {
-            word: "lend",
-            translation: "давать в долг",
-            forms: { v1: "lend", v2: "lent", v3: "lent" },
-            image: "images/lend.jpg",
-            audio: "audio/lend.mp3",
-            sentence: "Can you ________ me some money?"
-        },
-        {
-            word: "send",
-            translation: "отправлять",
-            forms: { v1: "send", v2: "sent", v3: "sent" },
-            image: "images/send.jpg",
-            audio: "audio/send.mp3",
-            sentence: "I ________ an email yesterday."
-        },
-        {
-            word: "spend",
-            translation: "проводить (время), тратить",
-            forms: { v1: "spend", v2: "spent", v3: "spent" },
-            image: "images/spend.jpg",
-            audio: "audio/spend.mp3",
-            sentence: "We ________ our vacation in Italy."
-        },
-        {
-            word: "mean",
-            translation: "значить, иметь в виду",
-            forms: { v1: "mean", v2: "meant", v3: "meant" },
-            image: "images/mean.jpg",
-            audio: "audio/mean.mp3",
-            sentence: "What do you ________?"
-        },
-        {
-            word: "keep",
-            translation: "сохранять",
-            forms: { v1: "keep", v2: "kept", v3: "kept" },
-            image: "images/keep.jpg",
-            audio: "audio/keep.mp3",
-            sentence: "Please ________ this secret."
-        },
-        {
-            word: "sleep",
-            translation: "спать",
-            forms: { v1: "sleep", v2: "slept", v3: "slept" },
-            image: "images/sleep.jpg",
-            audio: "audio/sleep.mp3",
-            sentence: "He ________ for eight hours."
-        },
-        {
-            word: "feel",
-            translation: "чувствовать",
-            forms: { v1: "feel", v2: "felt", v3: "felt" },
-            image: "images/feel.jpg",
-            audio: "audio/feel.mp3",
-            sentence: "I ________ much better today."
-        },
-        {
-            word: "leave",
-            translation: "уходить, оставлять",
-            forms: { v1: "leave", v2: "left", v3: "left" },
-            image: "images/leave.jpg",
-            audio: "audio/leave.mp3",
-            sentence: "She ________ the house early."
-        }
-    ],
-
-    "Irregular: -aught / -ought": [
-        {
-            word: "bring",
-            translation: "приносить",
-            forms: { v1: "bring", v2: "brought", v3: "brought" },
-            image: "images/bring.jpg",
-            audio: "audio/bring.mp3",
-            sentence: "He ________ some snacks."
-        },
-        {
-            word: "buy",
-            translation: "покупать",
-            forms: { v1: "buy", v2: "bought", v3: "bought" },
-            image: "images/buy.jpg",
-            audio: "audio/buy.mp3",
-            sentence: "She ________ a new car."
-        },
-        {
-            word: "catch",
-            translation: "поймать",
-            forms: { v1: "catch", v2: "caught", v3: "caught" },
-            image: "images/catch.jpg",
-            audio: "audio/catch.mp3",
-            sentence: "He ________ the ball."
-        },
-        {
-            word: "fight",
-            translation: "бороться",
-            forms: { v1: "fight", v2: "fought", v3: "fought" },
-            image: "images/fight.jpg",
-            audio: "audio/fight.mp3",
-            sentence: "They ________ for their rights."
-        },
-        {
-            word: "seek",
-            translation: "искать",
-            forms: { v1: "seek", v2: "sought", v3: "sought" },
-            image: "images/seek.jpg",
-            audio: "audio/seek.mp3",
-            sentence: "They ________ shelter from the rain."
-        },
-        {
-            word: "teach",
-            translation: "преподавать",
-            forms: { v1: "teach", v2: "taught", v3: "taught" },
-            image: "images/teach.jpg",
-            audio: "audio/teach.mp3",
-            sentence: "She ________ English at school."
-        },
-        {
-            word: "think",
-            translation: "думать",
-            forms: { v1: "think", v2: "thought", v3: "thought" },
-            image: "images/think.jpg",
-            audio: "audio/think.mp3",
-            sentence: "I ________ about it all night."
-        }
-    ],
-
-    "Irregular: A-O-A / O-O-O (Vowels change)": [
-        {
-            word: "shake",
-            translation: "трясти",
-            forms: { v1: "shake", v2: "shook", v3: "shaken" },
-            image: "images/shake.jpg",
-            audio: "audio/shake.mp3",
-            sentence: "She ________ the bottle."
-        },
-        {
-            word: "take",
-            translation: "брать",
-            forms: { v1: "take", v2: "took", v3: "taken" },
-            image: "images/take.jpg",
-            audio: "audio/take.mp3",
-            sentence: "Take your umbrella."
-        },
-        {
-            word: "break",
-            translation: "ломать",
-            forms: { v1: "break", v2: "broke", v3: "broken" },
-            image: "images/break.jpg",
-            audio: "audio/break.mp3",
-            sentence: "Do not ________ the rules."
-        },
-        {
-            word: "choose",
-            translation: "выбирать",
-            forms: { v1: "choose", v2: "chose", v3: "chosen" },
-            image: "images/choose.jpg",
-            audio: "audio/choose.mp3",
-            sentence: "Choose the best option."
-        },
-        {
-            word: "forget",
-            translation: "забыть",
-            forms: { v1: "forget", v2: "forgot", v3: "forgotten" },
-            image: "images/forget.jpg",
-            audio: "audio/forget.mp3",
-            sentence: "I ________ my keys."
-        },
-        {
-            word: "give",
-            translation: "давать",
-            forms: { v1: "give", v2: "gave", v3: "given" },
-            image: "images/give.jpg",
-            audio: "audio/give.mp3",
-            sentence: "Please ________ me a chance."
-        },
-        {
-            word: "eat",
-            translation: "есть",
-            forms: { v1: "eat", v2: "ate", v3: "eaten" },
-            image: "images/eat.jpg",
-            audio: "audio/eat.mp3",
-            sentence: "We ________ dinner together."
-        }
-    ],
-
-    "Irregular: I-A-U (Sing, Ring, etc.)": [
-        {
-            word: "begin",
-            translation: "начинать",
-            forms: { v1: "begin", v2: "began", v3: "begun" },
-            image: "images/begin.jpg",
-            audio: "audio/begin.mp3",
-            sentence: "The lesson will ________ soon."
-        },
-        {
-            word: "ring",
-            translation: "звонить",
-            forms: { v1: "ring", v2: "rang", v3: "rung" },
-            image: "images/ring.jpg",
-            audio: "audio/ring.mp3",
-            sentence: "The phone ________."
-        },
-        {
-            word: "sing",
-            translation: "петь",
-            forms: { v1: "sing", v2: "sang", v3: "sung" },
-            image: "images/sing.jpg",
-            audio: "audio/sing.mp3",
-            sentence: "She can ________ very well."
-        },
-        {
-            word: "swim",
-            translation: "плавать",
-            forms: { v1: "swim", v2: "swam", v3: "swum" },
-            image: "images/swim.jpg",
-            audio: "audio/swim.mp3",
-            sentence: "He likes to ________ in the pool."
-        },
-        {
-            word: "run",
-            translation: "бегать",
-            forms: { v1: "run", v2: "ran", v3: "run" },
-            image: "images/run.jpg",
-            audio: "audio/run.mp3",
-            sentence: "They ________ in the park."
-        },
-        {
-            word: "drink",
-            translation: "пить",
-            forms: { v1: "drink", v2: "drank", v3: "drunk" },
-            image: "images/drink.jpg",
-            audio: "audio/drink.mp3",
-            sentence: "I want to ________ water."
-        }
     ]
+};
+
+
+// ======================================================
+// IRREGULAR VERBS
+// ======================================================
+
+export const irregularVerbGroups = {
+
+    "ent-t": {
+        title: "-ent / -t endings",
+        description: "V2 and V3 usually end in -t",
+        words: [
+            {
+                word: "bend",
+                translation: "сгибать",
+                forms: {
+                    v1: "bend",
+                    v2: "bent",
+                    v3: "bent"
+                },
+                image: "images/bend.jpg",
+                audio: "audio/bend.mp3",
+                sentence: "He ________ the wire carefully."
+            },
+
+            {
+                word: "lend",
+                translation: "давать в долг",
+                forms: {
+                    v1: "lend",
+                    v2: "lent",
+                    v3: "lent"
+                },
+                image: "images/lend.jpg",
+                audio: "audio/lend.mp3",
+                sentence: "Can you ________ me some money?"
+            },
+
+            {
+                word: "send",
+                translation: "отправлять",
+                forms: {
+                    v1: "send",
+                    v2: "sent",
+                    v3: "sent"
+                },
+                image: "images/send.jpg",
+                audio: "audio/send.mp3",
+                sentence: "I ________ an email yesterday."
+            },
+
+            {
+                word: "spend",
+                translation: "проводить (время), тратить",
+                forms: {
+                    v1: "spend",
+                    v2: "spent",
+                    v3: "spent"
+                },
+                image: "images/spend.jpg",
+                audio: "audio/spend.mp3",
+                sentence: "We ________ our vacation in Italy."
+            },
+
+            {
+                word: "mean",
+                translation: "значить, иметь в виду",
+                forms: {
+                    v1: "mean",
+                    v2: "meant",
+                    v3: "meant"
+                },
+                image: "images/mean.jpg",
+                audio: "audio/mean.mp3",
+                sentence: "What do you ________?"
+            },
+
+            {
+                word: "keep",
+                translation: "сохранять",
+                forms: {
+                    v1: "keep",
+                    v2: "kept",
+                    v3: "kept"
+                },
+                image: "images/keep.jpg",
+                audio: "audio/keep.mp3",
+                sentence: "Please ________ this secret."
+            },
+
+            {
+                word: "sleep",
+                translation: "спать",
+                forms: {
+                    v1: "sleep",
+                    v2: "slept",
+                    v3: "slept"
+                },
+                image: "images/sleep.jpg",
+                audio: "audio/sleep.mp3",
+                sentence: "He ________ for eight hours."
+            },
+
+            {
+                word: "feel",
+                translation: "чувствовать",
+                forms: {
+                    v1: "feel",
+                    v2: "felt",
+                    v3: "felt"
+                },
+                image: "images/feel.jpg",
+                audio: "audio/feel.mp3",
+                sentence: "I ________ much better today."
+            },
+
+            {
+                word: "leave",
+                translation: "уходить, оставлять",
+                forms: {
+                    v1: "leave",
+                    v2: "left",
+                    v3: "left"
+                },
+                image: "images/leave.jpg",
+                audio: "audio/leave.mp3",
+                sentence: "She ________ the house early."
+            }
+        ]
+    },
+
+
+    "aught-ought": {
+        title: "-aught / -ought",
+        description: "Similar sound patterns",
+        words: [
+            {
+                word: "bring",
+                translation: "приносить",
+                forms: {
+                    v1: "bring",
+                    v2: "brought",
+                    v3: "brought"
+                },
+                image: "images/bring.jpg",
+                audio: "audio/bring.mp3",
+                sentence: "He ________ some snacks."
+            },
+
+            {
+                word: "buy",
+                translation: "покупать",
+                forms: {
+                    v1: "buy",
+                    v2: "bought",
+                    v3: "bought"
+                },
+                image: "images/buy.jpg",
+                audio: "audio/buy.mp3",
+                sentence: "She ________ a new car."
+            },
+
+            {
+                word: "catch",
+                translation: "поймать",
+                forms: {
+                    v1: "catch",
+                    v2: "caught",
+                    v3: "caught"
+                },
+                image: "images/catch.jpg",
+                audio: "audio/catch.mp3",
+                sentence: "He ________ the ball."
+            },
+
+            {
+                word: "fight",
+                translation: "бороться",
+                forms: {
+                    v1: "fight",
+                    v2: "fought",
+                    v3: "fought"
+                },
+                image: "images/fight.jpg",
+                audio: "audio/fight.mp3",
+                sentence: "They ________ for their rights."
+            },
+
+            {
+                word: "seek",
+                translation: "искать",
+                forms: {
+                    v1: "seek",
+                    v2: "sought",
+                    v3: "sought"
+                },
+                image: "images/seek.jpg",
+                audio: "audio/seek.mp3",
+                sentence: "They ________ shelter from the rain."
+            },
+
+            {
+                word: "teach",
+                translation: "преподавать",
+                forms: {
+                    v1: "teach",
+                    v2: "taught",
+                    v3: "taught"
+                },
+                image: "images/teach.jpg",
+                audio: "audio/teach.mp3",
+                sentence: "She ________ English at school."
+            },
+
+            {
+                word: "think",
+                translation: "думать",
+                forms: {
+                    v1: "think",
+                    v2: "thought",
+                    v3: "thought"
+                },
+                image: "images/think.jpg",
+                audio: "audio/think.mp3",
+                sentence: "I ________ about it all night."
+            }
+        ]
+    },
+
+
+    "vowel-change-1": {
+        title: "Vowel Change",
+        description: "Different vowel patterns",
+        words: [
+            {
+                word: "shake",
+                translation: "трясти",
+                forms: {
+                    v1: "shake",
+                    v2: "shook",
+                    v3: "shaken"
+                },
+                image: "images/shake.jpg",
+                audio: "audio/shake.mp3",
+                sentence: "She ________ the bottle."
+            },
+
+            {
+                word: "take",
+                translation: "брать",
+                forms: {
+                    v1: "take",
+                    v2: "took",
+                    v3: "taken"
+                },
+                image: "images/take.jpg",
+                audio: "audio/take.mp3",
+                sentence: "Please ________ your umbrella."
+            },
+
+            {
+                word: "break",
+                translation: "ломать",
+                forms: {
+                    v1: "break",
+                    v2: "broke",
+                    v3: "broken"
+                },
+                image: "images/break.jpg",
+                audio: "audio/break.mp3",
+                sentence: "Be careful not to ________ the glass."
+            },
+
+            {
+                word: "choose",
+                translation: "выбирать",
+                forms: {
+                    v1: "choose",
+                    v2: "chose",
+                    v3: "chosen"
+                },
+                image: "images/choose.jpg",
+                audio: "audio/choose.mp3",
+                sentence: "You can ________ one answer."
+            },
+
+            {
+                word: "forget",
+                translation: "забывать",
+                forms: {
+                    v1: "forget",
+                    v2: "forgot",
+                    v3: "forgotten"
+                },
+                image: "images/forget.jpg",
+                audio: "audio/forget.mp3",
+                sentence: "I ________ my keys yesterday."
+            },
+
+            {
+                word: "give",
+                translation: "давать",
+                forms: {
+                    v1: "give",
+                    v2: "gave",
+                    v3: "given"
+                },
+                image: "images/give.jpg",
+                audio: "audio/give.mp3",
+                sentence: "Please ________ me a chance."
+            },
+
+            {
+                word: "eat",
+                translation: "есть",
+                forms: {
+                    v1: "eat",
+                    v2: "ate",
+                    v3: "eaten"
+                },
+                image: "images/eat.jpg",
+                audio: "audio/eat.mp3",
+                sentence: "We ________ dinner together."
+            }
+        ]
+    },
+
+
+    "i-a-u": {
+        title: "I → A → U",
+        description: "Sing, ring, drink and similar verbs",
+        words: [
+            {
+                word: "begin",
+                translation: "начинать",
+                forms: {
+                    v1: "begin",
+                    v2: "began",
+                    v3: "begun"
+                },
+                image: "images/begin.jpg",
+                audio: "audio/begin.mp3",
+                sentence: "The lesson will ________ soon."
+            },
+
+            {
+                word: "ring",
+                translation: "звонить",
+                forms: {
+                    v1: "ring",
+                    v2: "rang",
+                    v3: "rung"
+                },
+                image: "images/ring.jpg",
+                audio: "audio/ring.mp3",
+                sentence: "The phone ________ yesterday."
+            },
+
+            {
+                word: "sing",
+                translation: "петь",
+                forms: {
+                    v1: "sing",
+                    v2: "sang",
+                    v3: "sung"
+                },
+                image: "images/sing.jpg",
+                audio: "audio/sing.mp3",
+                sentence: "She ________ at the concert yesterday."
+            },
+
+            {
+                word: "swim",
+                translation: "плавать",
+                forms: {
+                    v1: "swim",
+                    v2: "swam",
+                    v3: "swum"
+                },
+                image: "images/swim.jpg",
+                audio: "audio/swim.mp3",
+                sentence: "He ________ in the pool yesterday."
+            },
+
+            {
+                word: "run",
+                translation: "бегать",
+                forms: {
+                    v1: "run",
+                    v2: "ran",
+                    v3: "run"
+                },
+                image: "images/run.jpg",
+                audio: "audio/run.mp3",
+                sentence: "They ________ in the park yesterday."
+            },
+
+            {
+                word: "drink",
+                translation: "пить",
+                forms: {
+                    v1: "drink",
+                    v2: "drank",
+                    v3: "drunk"
+                },
+                image: "images/drink.jpg",
+                audio: "audio/drink.mp3",
+                sentence: "I ________ some water after the run."
+            }
+        ]
+    }
+
 };
