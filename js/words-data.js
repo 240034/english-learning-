@@ -1412,122 +1412,124 @@ export const dailyWords = {
 // ======================================================
 
 export const irregularVerbGroups = {
-
+    // Предыдущие группы (если есть) тоже можно оставить, здесь приведены ваши группы:
+    
     "ent-t": {
         title: "-ent / -t endings",
-        description: "V2 and V3 usually end in -t",
+        description: "Similar sound patterns",
         words: [
             {
                 word: "bend",
                 translation: "сгибать",
-                forms: {
-                    v1: "bend",
-                    v2: "bent",
-                    v3: "bent"
+                forms: { v1: "bend", v2: "bent", v3: "bent" },
+                formTranslations: {
+                    v1: "сгибать",
+                    v2: "согнул",
+                    v3: "согнутый"
                 },
                 image: "images/bend.jpg",
                 audio: "audio/bend.mp3",
                 sentence: "He ________ the wire carefully."
             },
-
             {
                 word: "lend",
                 translation: "давать в долг",
-                forms: {
-                    v1: "lend",
-                    v2: "lent",
-                    v3: "lent"
+                forms: { v1: "lend", v2: "lent", v3: "lent" },
+                formTranslations: {
+                    v1: "давать в долг",
+                    v2: "дал в долг",
+                    v3: "выданный в долг"
                 },
                 image: "images/lend.jpg",
                 audio: "audio/lend.mp3",
                 sentence: "Can you ________ me some money?"
             },
-
             {
                 word: "send",
                 translation: "отправлять",
-                forms: {
-                    v1: "send",
-                    v2: "sent",
-                    v3: "sent"
+                forms: { v1: "send", v2: "sent", v3: "sent" },
+                formTranslations: {
+                    v1: "отправлять",
+                    v2: "отправил",
+                    v3: "отправленный"
                 },
                 image: "images/send.jpg",
                 audio: "audio/send.mp3",
                 sentence: "I ________ an email yesterday."
             },
-
             {
                 word: "spend",
                 translation: "проводить (время), тратить",
-                forms: {
-                    v1: "spend",
-                    v2: "spent",
-                    v3: "spent"
+                forms: { v1: "spend", v2: "spent", v3: "spent" },
+                formTranslations: {
+                    v1: "тратить / проводить",
+                    v2: "потратил / провел",
+                    v3: "потраченный / проведенный"
                 },
                 image: "images/spend.jpg",
                 audio: "audio/spend.mp3",
                 sentence: "We ________ our vacation in Italy."
             },
-
             {
                 word: "mean",
                 translation: "значить, иметь в виду",
-                forms: {
-                    v1: "mean",
-                    v2: "meant",
-                    v3: "meant"
+                forms: { v1: "mean", v2: "meant", v3: "meant" },
+                formTranslations: {
+                    v1: "значить",
+                    v2: "значил",
+                    v3:значащий: "значимый"
                 },
                 image: "images/mean.jpg",
                 audio: "audio/mean.mp3",
                 sentence: "What do you ________?"
             },
-
             {
                 word: "keep",
                 translation: "сохранять",
-                forms: {
-                    v1: "keep",
-                    v2: "kept",
-                    v3: "kept"
+                forms: { v1: "keep", v2: "kept", v3: "kept" },
+                formTranslations: {
+                    v1: "сохранять",
+                    v2: "сохранил",
+                    v3: "сохраненный"
                 },
                 image: "images/keep.jpg",
                 audio: "audio/keep.mp3",
                 sentence: "Please ________ this secret."
             },
-
             {
                 word: "sleep",
                 translation: "спать",
-                forms: {
-                    v1: "sleep",
-                    v2: "slept",
-                    v3: "slept"
+                forms: { v1: "sleep", v2: "slept", v3: "slept" },
+                formTranslations: {
+                    v1: "спать",
+                    v2: "спал",
+                    v3: "проспанный"
                 },
                 image: "images/sleep.jpg",
                 audio: "audio/sleep.mp3",
                 sentence: "He ________ for eight hours."
             },
-
             {
                 word: "feel",
                 translation: "чувствовать",
-                forms: {
-                    v1: "feel",
-                    v2: "felt",
-                    v3: "felt"
+                forms: { v1: "feel", v2: "felt", v3: "felt" },
+                formTranslations: {
+                    v1: "чувствовать",
+                    v2: "почувствовал",
+                    v3: "почувствованный"
                 },
                 image: "images/feel.jpg",
                 audio: "audio/feel.mp3",
                 sentence: "I ________ much better today."
             },
-
             {
                 word: "leave",
                 translation: "уходить, оставлять",
-                forms: {
-                    v1: "leave",
-                    v2: "left",
-                    v3: "left"
+                forms: { v1: "leave", v2: "left", v3: "left" },
+                formTranslations: {
+                    v1: "уходить / оставлять",
+                    v2: "ушел / оставил",
+                    v3: "покинутый / оставленный"
                 },
                 image: "images/leave.jpg",
                 audio: "audio/leave.mp3",
@@ -1536,7 +1538,6 @@ export const irregularVerbGroups = {
         ]
     },
 
-
     "aught-ought": {
         title: "-aught / -ought",
         description: "Similar sound patterns",
@@ -1544,88 +1545,89 @@ export const irregularVerbGroups = {
             {
                 word: "bring",
                 translation: "приносить",
-                forms: {
-                    v1: "bring",
-                    v2: "brought",
-                    v3: "brought"
+                forms: { v1: "bring", v2: "brought", v3: "brought" },
+                formTranslations: {
+                    v1: "приносить",
+                    v2: "принес",
+                    v3: "принесенный"
                 },
                 image: "images/bring.jpg",
                 audio: "audio/bring.mp3",
                 sentence: "He ________ some snacks."
             },
-
             {
                 word: "buy",
                 translation: "покупать",
-                forms: {
-                    v1: "buy",
-                    v2: "bought",
-                    v3: "bought"
+                forms: { v1: "buy", v2: "bought", v3: "bought" },
+                formTranslations: {
+                    v1: "покупать",
+                    v2: "купил",
+                    v3: "купленный"
                 },
                 image: "images/buy.jpg",
                 audio: "audio/buy.mp3",
                 sentence: "She ________ a new car."
             },
-
             {
                 word: "catch",
                 translation: "поймать",
-                forms: {
-                    v1: "catch",
-                    v2: "caught",
-                    v3: "caught"
+                forms: { v1: "catch", v2: "caught", v3: "caught" },
+                formTranslations: {
+                    v1: "поймать",
+                    v2: "поймал",
+                    v3: "пойманный"
                 },
                 image: "images/catch.jpg",
                 audio: "audio/catch.mp3",
                 sentence: "He ________ the ball."
             },
-
             {
                 word: "fight",
                 translation: "бороться",
-                forms: {
-                    v1: "fight",
-                    v2: "fought",
-                    v3: "fought"
+                forms: { v1: "fight", v2: "fought", v3: "fought" },
+                formTranslations: {
+                    v1: "бороться",
+                    v2: "боролся",
+                    v3: "отборочный"
                 },
                 image: "images/fight.jpg",
                 audio: "audio/fight.mp3",
                 sentence: "They ________ for their rights."
             },
-
             {
                 word: "seek",
                 translation: "искать",
-                forms: {
-                    v1: "seek",
-                    v2: "sought",
-                    v3: "sought"
+                forms: { v1: "seek", v2: "sought", v3: "sought" },
+                formTranslations: {
+                    v1: "искать",
+                    v2: "искал",
+                    v3: "разыскиваемый"
                 },
                 image: "images/seek.jpg",
                 audio: "audio/seek.mp3",
                 sentence: "They ________ shelter from the rain."
             },
-
             {
                 word: "teach",
                 translation: "преподавать",
-                forms: {
-                    v1: "teach",
-                    v2: "taught",
-                    v3: "taught"
+                forms: { v1: "teach", v2: "taught", v3: "taught" },
+                formTranslations: {
+                    v1: "преподавать",
+                    v2: "преподавал",
+                    v3: "обученный"
                 },
                 image: "images/teach.jpg",
                 audio: "audio/teach.mp3",
                 sentence: "She ________ English at school."
             },
-
             {
                 word: "think",
                 translation: "думать",
-                forms: {
-                    v1: "think",
-                    v2: "thought",
-                    v3: "thought"
+                forms: { v1: "think", v2: "thought", v3: "thought" },
+                formTranslations: {
+                    v1: "думать",
+                    v2: "подумал",
+                    v3: "продуманный"
                 },
                 image: "images/think.jpg",
                 audio: "audio/think.mp3",
@@ -1634,7 +1636,6 @@ export const irregularVerbGroups = {
         ]
     },
 
-
     "vowel-change-1": {
         title: "Vowel Change",
         description: "Different vowel patterns",
@@ -1642,88 +1643,89 @@ export const irregularVerbGroups = {
             {
                 word: "shake",
                 translation: "трясти",
-                forms: {
-                    v1: "shake",
-                    v2: "shook",
-                    v3: "shaken"
+                forms: { v1: "shake", v2: "shook", v3: "shaken" },
+                formTranslations: {
+                    v1: "трясти",
+                    v2: "потряс",
+                    v3: "потрясенный"
                 },
                 image: "images/shake.jpg",
                 audio: "audio/shake.mp3",
                 sentence: "She ________ the bottle."
             },
-
             {
                 word: "take",
                 translation: "брать",
-                forms: {
-                    v1: "take",
-                    v2: "took",
-                    v3: "taken"
+                forms: { v1: "take", v2: "took", v3: "taken" },
+                formTranslations: {
+                    v1: "брать",
+                    v2: "взял",
+                    v3: "взятый"
                 },
                 image: "images/take.jpg",
                 audio: "audio/take.mp3",
                 sentence: "Please ________ your umbrella."
             },
-
             {
                 word: "break",
                 translation: "ломать",
-                forms: {
-                    v1: "break",
-                    v2: "broke",
-                    v3: "broken"
+                forms: { v1: "break", v2: "broke", v3: "broken" },
+                formTranslations: {
+                    v1: "ломать",
+                    v2: "сломал",
+                    v3: "сломанный"
                 },
                 image: "images/break.jpg",
                 audio: "audio/break.mp3",
                 sentence: "Be careful not to ________ the glass."
             },
-
             {
                 word: "choose",
                 translation: "выбирать",
-                forms: {
-                    v1: "choose",
-                    v2: "chose",
-                    v3: "chosen"
+                forms: { v1: "choose", v2: "chose", v3: "chosen" },
+                formTranslations: {
+                    v1: "выбирать",
+                    v2: "выбрал",
+                    v3: "выбранный"
                 },
                 image: "images/choose.jpg",
                 audio: "audio/choose.mp3",
                 sentence: "You can ________ one answer."
             },
-
             {
                 word: "forget",
                 translation: "забывать",
-                forms: {
-                    v1: "forget",
-                    v2: "forgot",
-                    v3: "forgotten"
+                forms: { v1: "forget", v2: "forgot", v3: "forgotten" },
+                formTranslations: {
+                    v1: "забывать",
+                    v2: "забыл",
+                    v3: "забытый"
                 },
                 image: "images/forget.jpg",
                 audio: "audio/forget.mp3",
                 sentence: "I ________ my keys yesterday."
             },
-
             {
                 word: "give",
                 translation: "давать",
-                forms: {
-                    v1: "give",
-                    v2: "gave",
-                    v3: "given"
+                forms: { v1: "give", v2: "gave", v3: "given" },
+                formTranslations: {
+                    v1: "давать",
+                    v2: "дал",
+                    v3: "данный"
                 },
                 image: "images/give.jpg",
                 audio: "audio/give.mp3",
                 sentence: "Please ________ me a chance."
             },
-
             {
                 word: "eat",
                 translation: "есть",
-                forms: {
-                    v1: "eat",
-                    v2: "ate",
-                    v3: "eaten"
+                forms: { v1: "eat", v2: "ate", v3: "eaten" },
+                formTranslations: {
+                    v1: "есть",
+                    v2: "съел",
+                    v3: "съеденный"
                 },
                 image: "images/eat.jpg",
                 audio: "audio/eat.mp3",
@@ -1732,7 +1734,6 @@ export const irregularVerbGroups = {
         ]
     },
 
-
     "i-a-u": {
         title: "I → A → U",
         description: "Sing, ring, drink and similar verbs",
@@ -1740,75 +1741,76 @@ export const irregularVerbGroups = {
             {
                 word: "begin",
                 translation: "начинать",
-                forms: {
-                    v1: "begin",
-                    v2: "began",
-                    v3: "begun"
+                forms: { v1: "begin", v2: "began", v3: "begun" },
+                formTranslations: {
+                    v1: "начинать",
+                    v2: "начал",
+                    v3: "начатый"
                 },
                 image: "images/begin.jpg",
                 audio: "audio/begin.mp3",
                 sentence: "The lesson will ________ soon."
             },
-
             {
                 word: "ring",
                 translation: "звонить",
-                forms: {
-                    v1: "ring",
-                    v2: "rang",
-                    v3: "rung"
+                forms: { v1: "ring", v2: "rang", v3: "rung" },
+                formTranslations: {
+                    v1: "звонить",
+                    v2: "позвонил",
+                    v3: "прозвеневший"
                 },
                 image: "images/ring.jpg",
                 audio: "audio/ring.mp3",
                 sentence: "The phone ________ yesterday."
             },
-
             {
                 word: "sing",
                 translation: "петь",
-                forms: {
-                    v1: "sing",
-                    v2: "sang",
-                    v3: "sung"
+                forms: { v1: "sing", v2: "sang", v3: "sung" },
+                formTranslations: {
+                    v1: "петь",
+                    v2: "спел",
+                    v3: "спетый"
                 },
                 image: "images/sing.jpg",
                 audio: "audio/sing.mp3",
                 sentence: "She ________ at the concert yesterday."
             },
-
             {
                 word: "swim",
                 translation: "плавать",
-                forms: {
-                    v1: "swim",
-                    v2: "swam",
-                    v3: "swum"
+                forms: { v1: "swim", v2: "swam", v3: "swum" },
+                formTranslations: {
+                    v1: "плавать",
+                    v2: "проплыл",
+                    v3: "проплытый"
                 },
                 image: "images/swim.jpg",
                 audio: "audio/swim.mp3",
                 sentence: "He ________ in the pool yesterday."
             },
-
             {
                 word: "run",
                 translation: "бегать",
-                forms: {
-                    v1: "run",
-                    v2: "ran",
-                    v3: "run"
+                forms: { v1: "run", v2: "ran", v3: "run" },
+                formTranslations: {
+                    v1: "бегать",
+                    v2: "бежал",
+                    v3: "пробеганный"
                 },
                 image: "images/run.jpg",
                 audio: "audio/run.mp3",
                 sentence: "They ________ in the park yesterday."
             },
-
             {
                 word: "drink",
                 translation: "пить",
-                forms: {
-                    v1: "drink",
-                    v2: "drank",
-                    v3: "drunk"
+                forms: { v1: "drink", v2: "drank", v3: "drunk" },
+                formTranslations: {
+                    v1: "пить",
+                    v2: "выпил",
+                    v3: "пьяный / выпитый"
                 },
                 image: "images/drink.jpg",
                 audio: "audio/drink.mp3",
@@ -1816,5 +1818,4 @@ export const irregularVerbGroups = {
             }
         ]
     }
-
 };
