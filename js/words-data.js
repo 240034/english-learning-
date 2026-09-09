@@ -1,7 +1,5 @@
-// js/words-data.js
-
 export const dailyWords = {
-
+    // Дни, которые уже были
     "1": [
         {
             word: "It's dark outside",
@@ -718,7 +716,6 @@ export const dailyWords = {
             sentence: "Traveling and meeting new people helps you ________."
         }
     ],
-
     "2": [
         {
             word: "Do everything quickly",
@@ -1408,296 +1405,249 @@ export const dailyWords = {
         }
     ],
 
-    "Irregular Verbs": [
+    // Новые группы с неправильными глаголами из ваших конспектов:
+
+    "Irregular: -ent / -t endings": [
         {
-            group: "Group 1 — -ake → -ook → -aken",
-            pattern: "-ake → -ook → -aken",
-            word: "shake",
-            translation: "трясти",
-            forms: { v1: "shake", v2: "shook", v3: "shaken" },
-            image: "images/shake.jpg",
-            audio: "audio/shake.mp3",
-            sentence: "She ________ the bottle yesterday."
+            word: "bend",
+            translation: "сгибать",
+            forms: { v1: "bend", v2: "bent", v3: "bent" },
+            image: "images/bend.jpg",
+            audio: "audio/bend.mp3",
+            sentence: "He ________ the wire carefully."
         },
         {
-            group: "Group 1 — -ake → -ook → -aken",
-            pattern: "-ake → -ook → -aken",
-            word: "take",
-            translation: "брать",
-            forms: { v1: "take", v2: "took", v3: "taken" },
-            image: "images/take.jpg",
-            audio: "audio/take.mp3",
-            sentence: "I ________ my umbrella yesterday."
+            word: "lend",
+            translation: "давать в долг",
+            forms: { v1: "lend", v2: "lent", v3: "lent" },
+            image: "images/lend.jpg",
+            audio: "audio/lend.mp3",
+            sentence: "Can you ________ me some money?"
         },
         {
-            group: "Group 1 — -ake → -ook → -aken",
-            pattern: "-ake → -ook → -aken",
-            word: "mistake",
-            translation: "ошибаться",
-            forms: { v1: "mistake", v2: "mistook", v3: "mistaken" },
-            image: "images/mistake.jpg",
-            audio: "audio/mistake.mp3",
-            sentence: "I ________ his name yesterday."
+            word: "send",
+            translation: "отправлять",
+            forms: { v1: "send", v2: "sent", v3: "sent" },
+            image: "images/send.jpg",
+            audio: "audio/send.mp3",
+            sentence: "I ________ an email yesterday."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
-            word: "teach",
-            translation: "обучать",
-            forms: { v1: "teach", v2: "taught", v3: "taught" },
-            image: "images/teach.jpg",
-            audio: "audio/teach.mp3",
-            sentence: "My mother ________ me English yesterday."
+            word: "spend",
+            translation: "проводить (время), тратить",
+            forms: { v1: "spend", v2: "spent", v3: "spent" },
+            image: "images/spend.jpg",
+            audio: "audio/spend.mp3",
+            sentence: "We ________ our vacation in Italy."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
-            word: "catch",
-            translation: "ловить",
-            forms: { v1: "catch", v2: "caught", v3: "caught" },
-            image: "images/catch.jpg",
-            audio: "audio/catch.mp3",
-            sentence: "I ________ the ball."
+            word: "mean",
+            translation: "значить, иметь в виду",
+            forms: { v1: "mean", v2: "meant", v3: "meant" },
+            image: "images/mean.jpg",
+            audio: "audio/mean.mp3",
+            sentence: "What do you ________?"
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
+            word: "keep",
+            translation: "сохранять",
+            forms: { v1: "keep", v2: "kept", v3: "kept" },
+            image: "images/keep.jpg",
+            audio: "audio/keep.mp3",
+            sentence: "Please ________ this secret."
+        },
+        {
+            word: "sleep",
+            translation: "спать",
+            forms: { v1: "sleep", v2: "slept", v3: "slept" },
+            image: "images/sleep.jpg",
+            audio: "audio/sleep.mp3",
+            sentence: "He ________ for eight hours."
+        },
+        {
+            word: "feel",
+            translation: "чувствовать",
+            forms: { v1: "feel", v2: "felt", v3: "felt" },
+            image: "images/feel.jpg",
+            audio: "audio/feel.mp3",
+            sentence: "I ________ much better today."
+        },
+        {
+            word: "leave",
+            translation: "уходить, оставлять",
+            forms: { v1: "leave", v2: "left", v3: "left" },
+            image: "images/leave.jpg",
+            audio: "audio/leave.mp3",
+            sentence: "She ________ the house early."
+        }
+    ],
+
+    "Irregular: -aught / -ought": [
+        {
             word: "bring",
             translation: "приносить",
             forms: { v1: "bring", v2: "brought", v3: "brought" },
             image: "images/bring.jpg",
             audio: "audio/bring.mp3",
-            sentence: "She ________ some food yesterday."
+            sentence: "He ________ some snacks."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
             word: "buy",
             translation: "покупать",
             forms: { v1: "buy", v2: "bought", v3: "bought" },
             image: "images/buy.jpg",
             audio: "audio/buy.mp3",
-            sentence: "I ________ a new book yesterday."
+            sentence: "She ________ a new car."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
+            word: "catch",
+            translation: "поймать",
+            forms: { v1: "catch", v2: "caught", v3: "caught" },
+            image: "images/catch.jpg",
+            audio: "audio/catch.mp3",
+            sentence: "He ________ the ball."
+        },
+        {
             word: "fight",
             translation: "бороться",
             forms: { v1: "fight", v2: "fought", v3: "fought" },
             image: "images/fight.jpg",
             audio: "audio/fight.mp3",
-            sentence: "The boys ________ yesterday."
+            sentence: "They ________ for their rights."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
             word: "seek",
             translation: "искать",
             forms: { v1: "seek", v2: "sought", v3: "sought" },
             image: "images/seek.jpg",
             audio: "audio/seek.mp3",
-            sentence: "He ________ help yesterday."
+            sentence: "They ________ shelter from the rain."
         },
         {
-            group: "Group 2 — -aught / -ought",
-            pattern: "-aught / -ought",
+            word: "teach",
+            translation: "преподавать",
+            forms: { v1: "teach", v2: "taught", v3: "taught" },
+            image: "images/teach.jpg",
+            audio: "audio/teach.mp3",
+            sentence: "She ________ English at school."
+        },
+        {
             word: "think",
             translation: "думать",
             forms: { v1: "think", v2: "thought", v3: "thought" },
             image: "images/think.jpg",
             audio: "audio/think.mp3",
-            sentence: "I ________ about my friend yesterday."
+            sentence: "I ________ about it all night."
+        }
+    ],
+
+    "Irregular: A-O-A / O-O-O (Vowels change)": [
+        {
+            word: "shake",
+            translation: "трясти",
+            forms: { v1: "shake", v2: "shook", v3: "shaken" },
+            image: "images/shake.jpg",
+            audio: "audio/shake.mp3",
+            sentence: "She ________ the bottle."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "bet",
-            translation: "заключать пари",
-            forms: { v1: "bet", v2: "bet", v3: "bet" },
-            image: "images/bet.jpg",
-            audio: "audio/bet.mp3",
-            sentence: "He ________ on the game yesterday."
+            word: "take",
+            translation: "брать",
+            forms: { v1: "take", v2: "took", v3: "taken" },
+            image: "images/take.jpg",
+            audio: "audio/take.mp3",
+            sentence: "Take your umbrella."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "cost",
-            translation: "стоить",
-            forms: { v1: "cost", v2: "cost", v3: "cost" },
-            image: "images/cost.jpg",
-            audio: "audio/cost.mp3",
-            sentence: "The book ________ ten dollars."
+            word: "break",
+            translation: "ломать",
+            forms: { v1: "break", v2: "broke", v3: "broken" },
+            image: "images/break.jpg",
+            audio: "audio/break.mp3",
+            sentence: "Do not ________ the rules."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "cut",
-            translation: "резать",
-            forms: { v1: "cut", v2: "cut", v3: "cut" },
-            image: "images/cut.jpg",
-            audio: "audio/cut.mp3",
-            sentence: "I ________ the paper yesterday."
+            word: "choose",
+            translation: "выбирать",
+            forms: { v1: "choose", v2: "chose", v3: "chosen" },
+            image: "images/choose.jpg",
+            audio: "audio/choose.mp3",
+            sentence: "Choose the best option."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "hit",
-            translation: "ударять, попадать",
-            forms: { v1: "hit", v2: "hit", v3: "hit" },
-            image: "images/hit.jpg",
-            audio: "audio/hit.mp3",
-            sentence: "The ball ________ the window."
+            word: "forget",
+            translation: "забыть",
+            forms: { v1: "forget", v2: "forgot", v3: "forgotten" },
+            image: "images/forget.jpg",
+            audio: "audio/forget.mp3",
+            sentence: "I ________ my keys."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "hurt",
-            translation: "причинять боль",
-            forms: { v1: "hurt", v2: "hurt", v3: "hurt" },
-            image: "images/hurt.jpg",
-            audio: "audio/hurt.mp3",
-            sentence: "I ________ my leg yesterday."
+            word: "give",
+            translation: "давать",
+            forms: { v1: "give", v2: "gave", v3: "given" },
+            image: "images/give.jpg",
+            audio: "audio/give.mp3",
+            sentence: "Please ________ me a chance."
         },
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "let",
-            translation: "позволять",
-            forms: { v1: "let", v2: "let", v3: "let" },
-            image: "images/let.jpg",
-            audio: "audio/let.mp3",
-            sentence: "My parents ________ me go outside."
-        },
+            word: "eat",
+            translation: "есть",
+            forms: { v1: "eat", v2: "ate", v3: "eaten" },
+            image: "images/eat.jpg",
+            audio: "audio/eat.mp3",
+            sentence: "We ________ dinner together."
+        }
+    ],
+
+    "Irregular: I-A-U (Sing, Ring, etc.)": [
         {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "put",
-            translation: "класть, ставить",
-            forms: { v1: "put", v2: "put", v3: "put" },
-            image: "images/put.jpg",
-            audio: "audio/put.mp3",
-            sentence: "I ________ my phone on the table."
-        },
-        {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "read",
-            translation: "читать",
-            forms: { v1: "read", v2: "read", v3: "read" },
-            image: "images/read.jpg",
-            audio: "audio/read.mp3",
-            sentence: "I ________ a book yesterday."
-        },
-        {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "set",
-            translation: "устанавливать",
-            forms: { v1: "set", v2: "set", v3: "set" },
-            image: "images/set.jpg",
-            audio: "audio/set.mp3",
-            sentence: "She ________ the alarm yesterday."
-        },
-        {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "shut",
-            translation: "закрывать, затворять",
-            forms: { v1: "shut", v2: "shut", v3: "shut" },
-            image: "images/shut.jpg",
-            audio: "audio/shut.mp3",
-            sentence: "He ________ the door."
-        },
-        {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "split",
-            translation: "разделять, раскалывать",
-            forms: { v1: "split", v2: "split", v3: "split" },
-            image: "images/split.jpg",
-            audio: "audio/split.mp3",
-            sentence: "We ________ the cake into pieces."
-        },
-        {
-            group: "Group 3 — All 3 forms are the same",
-            pattern: "V1 = V2 = V3",
-            word: "spread",
-            translation: "разворачивать, распространять",
-            forms: { v1: "spread", v2: "spread", v3: "spread" },
-            image: "images/spread.jpg",
-            audio: "audio/spread.mp3",
-            sentence: "She ________ the butter on the bread."
-        },
-        {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
             word: "begin",
             translation: "начинать",
             forms: { v1: "begin", v2: "began", v3: "begun" },
             image: "images/begin.jpg",
             audio: "audio/begin.mp3",
-            sentence: "The lesson ________ at nine."
+            sentence: "The lesson will ________ soon."
         },
         {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
-            word: "drink",
-            translation: "пить",
-            forms: { v1: "drink", v2: "drank", v3: "drunk" },
-            image: "images/drink.jpg",
-            audio: "audio/drink.mp3",
-            sentence: "I ________ some water."
-        },
-        {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
             word: "ring",
             translation: "звонить",
             forms: { v1: "ring", v2: "rang", v3: "rung" },
             image: "images/ring.jpg",
             audio: "audio/ring.mp3",
-            sentence: "The phone ________ this morning."
+            sentence: "The phone ________."
         },
         {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
-            word: "run",
-            translation: "бежать",
-            forms: { v1: "run", v2: "ran", v3: "run" },
-            image: "images/run.jpg",
-            audio: "audio/run.mp3",
-            sentence: "I ________ to school yesterday."
-        },
-        {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
-            word: "shrink",
-            translation: "сжиматься",
-            forms: { v1: "shrink", v2: "shrank", v3: "shrunk" },
-            image: "images/shrink.jpg",
-            audio: "audio/shrink.mp3",
-            sentence: "The shirt ________ after washing."
-        },
-        {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
             word: "sing",
             translation: "петь",
             forms: { v1: "sing", v2: "sang", v3: "sung" },
             image: "images/sing.jpg",
             audio: "audio/sing.mp3",
-            sentence: "She ________ a song yesterday."
+            sentence: "She can ________ very well."
         },
         {
-            group: "Group 4 — i → a → u",
-            pattern: "i → a → u",
-            word: "sink",
-            translation: "тонуть",
-            forms: { v1: "sink", v2: "sank", v3: "sunk" },
-            image: "images/sink.jpg",
-            audio: "audio/sink.mp3",
-            sentence: "The ship ________ in the ocean."
+            word: "swim",
+            translation: "плавать",
+            forms: { v1: "swim", v2: "swam", v3: "swum" },
+            image: "images/swim.jpg",
+            audio: "audio/swim.mp3",
+            sentence: "He likes to ________ in the pool."
+        },
+        {
+            word: "run",
+            translation: "бегать",
+            forms: { v1: "run", v2: "ran", v3: "run" },
+            image: "images/run.jpg",
+            audio: "audio/run.mp3",
+            sentence: "They ________ in the park."
+        },
+        {
+            word: "drink",
+            translation: "пить",
+            forms: { v1: "drink", v2: "drank", v3: "drunk" },
+            image: "images/drink.jpg",
+            audio: "audio/drink.mp3",
+            sentence: "I want to ________ water."
         }
     ]
 };
