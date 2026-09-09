@@ -37,7 +37,7 @@
         <!-- Главные табы (День 1, День 2, Irregular Verbs) -->
         <div class="date-tabs" id="main-tabs"></div>
 
-        <!-- Под-табы для групп Irregular Verbs (появляются только если выбраны Irregular Verbs) -->
+        <!-- Под-табы для групп Irregular Verbs -->
         <div class="date-tabs" id="sub-tabs" style="margin-top: 10px; display: none;"></div>
 
         <!-- Сетка флеш-карточек со словами -->
@@ -49,8 +49,7 @@
     <script type="module">
         import { dailyWords, irregularVerbGroups } from './js/words-data.js';
 
-        // Состояние навигации
-        let mainCategory = 'daily'; // 'daily' или 'irregular'
+        let mainCategory = 'daily'; 
         let currentDay = Object.keys(dailyWords)[0]; 
         let currentGroupKey = Object.keys(irregularVerbGroups)[0];
 
@@ -62,7 +61,7 @@
             mainTabsContainer.innerHTML = '';
             subTabsContainer.innerHTML = '';
 
-            // 1. Рендерим главные табы (Дни + Irregular Verbs)
+            // 1. Дни
             Object.keys(dailyWords).forEach(dayKey => {
                 const count = dailyWords[dayKey].length;
                 const tab = document.createElement('div');
@@ -82,7 +81,7 @@
                 mainTabsContainer.appendChild(tab);
             });
 
-            // Главная кнопка "Irregular Verbs"
+            // Кнопка Irregular Verbs
             const irregularTab = document.createElement('div');
             irregularTab.className = `date-tab ${mainCategory === 'irregular' ? 'active' : ''}`;
             irregularTab.onclick = () => {
@@ -98,7 +97,7 @@
             `;
             mainTabsContainer.appendChild(irregularTab);
 
-            // 2. Если выбраны Irregular Verbs, показываем под-табы с 4 группами
+            // 2. Группы глаголов
             if (mainCategory === 'irregular') {
                 subTabsContainer.style.display = 'flex';
 
@@ -126,21 +125,25 @@
             }
         }
 
-        // Функция отрисовки карточек
         function renderCards() {
             cardsGrid.innerHTML = '';
             let wordsToRender = [];
 
             if (mainCategory === 'daily') {
-                wordsToRender = dailyWords[currentDay] || [];
+                wordsToRender = (dailyWords[currentDay] || []).map(item => ({
+                    ...item,
+                    isIrregular: false
+                }));
             } else {
                 const group = irregularVerbGroups[currentGroupKey];
                 if (group && group.words) {
                     wordsToRender = group.words.map(item => ({
                         word: item.word,
-                        translation: `${item.translation}<br><small style="color: gray;">V2: ${item.forms.v2} | V3: ${item.forms.v3}</small>`,
+                        translation: item.translation,
                         image: item.image,
-                        audio: item.audio
+                        audio: item.audio,
+                        forms: item.forms,
+                        isIrregular: true
                     }));
                 }
             }
@@ -150,35 +153,92 @@
                 card.className = 'flashcard';
                 card.onclick = () => card.classList.toggle('flipped');
 
+                // Формируем контент для лица и изнанки в зависимости от типа слова
+                let frontContent = '';
+                let backContent = '';
+
+                if (item.isIrregular && item.forms) {
+                    // Лицевая сторона для неправильных глаголов (все 3 формы рядом)
+                    frontContent = `
+                        <div class="card-image-wrapper">
+                            <img src="${item.image}" alt="${item.word}" loading="lazy">
+                        </div>
+                        <h3>${item.forms.v1} — ${item.forms.v2} — ${item.forms.v3}</h3>
+                        <button class="audio-btn" onclick="event.stopPropagation(); playIrregularAudio('${item.forms.v1}', '${item.forms.v2}', '${item.forms.v3}', '${item.audio}')">🔊</button>
+                        <span class="hint-text">Кликните, чтобы перевернуть</span>
+                    `;
+                    // Обратная сторона с переводами/формами
+                    backContent = `
+                        <h3>${item.translation}</h3>
+                        <p style="margin-top: 10px; color: gray; font-size: 0.95rem;">
+                            V1: ${item.forms.v1}<br>
+                            V2: ${item.forms.v2}<br>
+                            V3: ${item.forms.v3}
+                        </p>
+                    `;
+                } else {
+                    // Обычная карточка (для дней)
+                    frontContent = `
+                        <div class="card-image-wrapper">
+                            <img src="${item.image}" alt="${item.word}" loading="lazy">
+                        </div>
+                        <h3>${item.word}</h3>
+                        <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${item.audio}')">🔊</button>
+                        <span class="hint-text">Кликните, чтобы перевернуть</span>
+                    `;
+                    backContent = `<h3>${item.translation}</h3>`;
+                }
+
                 card.innerHTML = `
                     <div class="flashcard-inner">
-                        <!-- Лицевая сторона -->
-                        <div class="flashcard-front">
-                            <div class="card-image-wrapper">
-                                <img src="${item.image}" alt="${item.word}" loading="lazy">
-                            </div>
-                            <h3>${item.word}</h3>
-                            <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${item.audio}')">🔊</button>
-                            <span class="hint-text">Кликните, чтобы перевернуть</span>
-                        </div>
-                        <!-- Обратная сторона -->
-                        <div class="flashcard-back">
-                            <h3>${item.translation}</h3>
-                        </div>
+                        <div class="flashcard-front">${frontContent}</div>
+                        <div class="flashcard-back">${backContent}</div>
                     </div>
                 `;
                 cardsGrid.appendChild(card);
             });
         }
 
-        // Озвучка слов
+        // Обычная озвучка
         window.playAudio = function(src) {
             if (!src) return;
             const audio = new Audio(src);
             audio.play().catch(e => console.log("Ошибка воспроизведения звука:", e));
         };
 
-        // Инициализация
+        // Озвучка трех форм с интервалом в 1 секунду (через синтезатор речи браузера SpeechSynthesis)
+        window.playIrregularAudio = function(v1, v2, v3, fallbackAudio) {
+            // Если поддерживается синтезатор речи, озвучиваем каждое слово по очереди с паузой 1 сек
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Очищаем предыдущие очереди
+
+                const utter1 = new SpeechSynthesisUtterance(v1);
+                utter1.lang = 'en-US';
+                
+                const utter2 = new SpeechSynthesisUtterance(v2);
+                utter2.lang = 'en-US';
+
+                const utter3 = new SpeechSynthesisUtterance(v3);
+                utter3.lang = 'en-US';
+
+                // Запускаем первое слово
+                window.speechSynthesis.speak(utter1);
+
+                // Второе слово через 1 секунду (1000 мс)
+                setTimeout(() => {
+                    window.speechSynthesis.speak(utter2);
+                }, 1000);
+
+                // Третье слово через 2 секунды (2000 мс)
+                setTimeout(() => {
+                    window.speechSynthesis.speak(utter3);
+                }, 2000);
+            } else if (fallbackAudio) {
+                // Запасной вариант, если синтезатор недоступен
+                playAudio(fallbackAudio);
+            }
+        };
+
         renderTabs();
         renderCards();
     </script>
