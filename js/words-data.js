@@ -1412,8 +1412,6 @@ export const dailyWords = {
 // ======================================================
 
 export const irregularVerbGroups = {
-    // Предыдущие группы (если есть) тоже можно оставить, здесь приведены ваши группы:
-    
     "ent-t": {
         title: "-ent / -t endings",
         description: "Similar sound patterns",
@@ -1477,7 +1475,7 @@ export const irregularVerbGroups = {
                 formTranslations: {
                     v1: "значить",
                     v2: "значил",
-                    v3:значащий: "значимый"
+                    v3: "значимый"
                 },
                 image: "images/mean.jpg",
                 audio: "audio/mean.mp3",
