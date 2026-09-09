@@ -145,7 +145,7 @@
                         forms: item.forms,
                         formTranslations: item.formTranslations || {
                             v1: item.translation,
-                            v2: item.translation, // здесь можно будет указать свои переводы в words-data.js
+                            v2: item.translation,
                             v3: item.translation
                         },
                         isIrregular: true
@@ -168,7 +168,7 @@
                             <img src="${item.image}" alt="${item.word}" loading="lazy">
                         </div>
                         <h3>${item.forms.v1} — ${item.forms.v2} — ${item.forms.v3}</h3>
-                        <button class="audio-btn" onclick="event.stopPropagation(); playIrregularAudio('${item.forms.v1}', '${item.forms.v2}', '${item.forms.v3}', '${item.audio}')">🔊</button>
+                        <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${item.audio}')">🔊</button>
                         <span class="hint-text">Кликните, чтобы перевернуть</span>
                     `;
                     
@@ -182,7 +182,7 @@
                         </div>
                     `;
                 } else {
-                    // Обычная карточка (для дней)
+                    // Очная карточка (для дней)
                     frontContent = `
                         <div class="card-image-wrapper">
                             <img src="${item.image}" alt="${item.word}" loading="lazy">
@@ -204,37 +204,11 @@
             });
         }
 
-        // Обычная озвучка
+        // Функция воспроизведения аудиофайлов
         window.playAudio = function(src) {
             if (!src) return;
             const audio = new Audio(src);
             audio.play().catch(e => console.log("Ошибка воспроизведения звука:", e));
-        };
-
-        // Озвучка трех форм с интервалом в 1 секунду
-        window.playIrregularAudio = function(v1, v2, v3, fallbackAudio) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-
-                const utter1 = new SpeechSynthesisUtterance(v1);
-                utter1.lang = 'en-US';
-                const utter2 = new SpeechSynthesisUtterance(v2);
-                utter2.lang = 'en-US';
-                const utter3 = new SpeechSynthesisUtterance(v3);
-                utter3.lang = 'en-US';
-
-                window.speechSynthesis.speak(utter1);
-
-                setTimeout(() => {
-                    window.speechSynthesis.speak(utter2);
-                }, 1000);
-
-                setTimeout(() => {
-                    window.speechSynthesis.speak(utter3);
-                }, 2000);
-            } else if (fallbackAudio) {
-                playAudio(fallbackAudio);
-            }
         };
 
         renderTabs();
