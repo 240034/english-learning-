@@ -1411,8 +1411,36 @@ export const dailyWords = {
 // ======================================================
 
 export const irregularVerbGroups = {
+
+    "common-irregular": {
+        title: "Popular group",
+        description: "Frequently used irregular verbs",
+        words: [
+            { word: "get", translation: "получать", forms: { v1: "get", v2: "got", v3: "got" }, formTranslations: { v1: "получать", v2: "получил", v3: "полученный" }, image: "images/get.jpg", audio: "audio/get.mp3", sentence: "Did you ________ my message?" },
+            { word: "build", translation: "строить", forms: { v1: "build", v2: "built", v3: "built" }, formTranslations: { v1: "строить", v2: "построил", v3: "построенный" }, image: "images/build.jpg", audio: "audio/build.mp3", sentence: "They ________ a house." },
+            { word: "light", translation: "зажигать", forms: { v1: "light", v2: "lit", v3: "lit" }, formTranslations: { v1: "зажигать", v2: "зажег", v3: "зажженный" }, image: "images/light.jpg", audio: "audio/light.mp3", sentence: "Please ________ the candle." },
+            { word: "lose", translation: "терять", forms: { v1: "lose", v2: "lost", v3: "lost" }, formTranslations: { v1: "терять", v2: "потерял", v3: "потерянный" }, image: "images/lose.jpg", audio: "audio/lose.mp3", sentence: "Don't ________ your keys." },
+            { word: "stand", translation: "стоять", forms: { v1: "stand", v2: "stood", v3: "stood" }, formTranslations: { v1: "стоять", v2: "стоял", v3: "простоявший" }, image: "images/stand.jpg", audio: "audio/stand.mp3", sentence: "Please ________ up." },
+            { word: "understand", translation: "понимать", forms: { v1: "understand", v2: "understood", v3: "understood" }, formTranslations: { v1: "понимать", v2: "понял", v3: "понятый" }, image: "images/understand.jpg", audio: "audio/understand.mp3", sentence: "I ________ you." },
+            { word: "find", translation: "находить", forms: { v1: "find", v2: "found", v3: "found" }, formTranslations: { v1: "находить", v2: "нашел", v3: "найденный" }, image: "images/find.jpg", audio: "audio/find.mp3", sentence: "I ________ my phone." },
+            { word: "hear", translation: "слышать", forms: { v1: "hear", v2: "heard", v3: "heard" }, formTranslations: { v1: "слышать", v2: "услышал", v3: "услышанный" }, image: "images/hear.jpg", audio: "audio/hear.mp3", sentence: "Did you ________ that noise?" },
+            { word: "make", translation: "делать", forms: { v1: "make", v2: "made", v3: "made" }, formTranslations: { v1: "делать", v2: "сделал", v3: "сделанный" }, image: "images/make.jpg", audio: "audio/make.mp3", sentence: "She ________ a cake." },
+            { word: "pay", translation: "платить", forms: { v1: "pay", v2: "paid", v3: "paid" }, formTranslations: { v1: "платить", v2: "оплатил", v3: "оплаченный" }, image: "images/pay.jpg", audio: "audio/pay.mp3", sentence: "I will ________ for dinner." },
+            { word: "say", translation: "сказать", forms: { v1: "say", v2: "said", v3: "said" }, formTranslations: { v1: "сказать", v2: "сказал", v3: "сказанный" }, image: "images/say.jpg", audio: "audio/say.mp3", sentence: "What did he ________?" },
+            { word: "have", translation: "иметь", forms: { v1: "have", v2: "had", v3: "had" }, formTranslations: { v1: "иметь", v2: "имел", v3: "имеемый" }, image: "images/have.jpg", audio: "audio/have.mp3", sentence: "I ________ a cat." },
+            { word: "tell", translation: "рассказывать", forms: { v1: "tell", v2: "told", v3: "told" }, formTranslations: { v1: "рассказывать", v2: "рассказал", v3: "рассказанный" }, image: "images/tell.jpg", audio: "audio/tell.mp3", sentence: "Please ________ me a story." },
+            { word: "sell", translation: "продавать", forms: { v1: "sell", v2: "sold", v3: "sold" }, formTranslations: { v1: "продавать", v2: "продал", v3: "проданный" }, image: "images/sell.jpg", audio: "audio/sell.mp3", sentence: "They ________ old cars." },
+            { word: "dig", translation: "копать", forms: { v1: "dig", v2: "dug", v3: "dug" }, formTranslations: { v1: "копать", v2: "копал", v3: "выкопанный" }, image: "images/dig.jpg", audio: "audio/dig.mp3", sentence: "Dogs like to ________." },
+            { word: "sit", translation: "сидеть", forms: { v1: "sit", v2: "sat", v3: "sat" }, formTranslations: { v1: "сидеть", v2: "сидел", v3: "сидевший" }, image: "images/sit.jpg", audio: "audio/sit.mp3", sentence: "Please ________ down." },
+            { word: "be", translation: "быть", forms: { v1: "be", v2: "was/were", v3: "been" }, formTranslations: { v1: "быть", v2: "был", v3: "бывший" }, image: "images/be.jpg", audio: "audio/be.mp3", sentence: "I want to ________ happy." },
+            { word: "see", translation: "видеть", forms: { v1: "see", v2: "saw", v3: "seen" }, formTranslations: { v1: "видеть", v2: "видел", v3: "увиденный" }, image: "images/see.jpg", audio: "audio/see.mp3", sentence: "I can ________ a bird." },
+            { word: "go", translation: "идти", forms: { v1: "go", v2: "went", v3: "gone" }, formTranslations: { v1: "идти", v2: "пошел", v3: "ушедший" }, image: "images/go.jpg", audio: "audio/go.mp3", sentence: "Let's ________ home." },
+            { word: "do", translation: "делать", forms: { v1: "do", v2: "did", v3: "done" }, formTranslations: { v1: "делать", v2: "сделал", v3: "сделанный" }, image: "images/do.jpg", audio: "audio/do.mp3", sentence: "What do you ________?" }
+        ]
+    },
+    
     "ent-t": {
-        title: "-ent / -t endings",
+        title: "1st group",
         description: "Similar sound patterns",
         words: [
             {
@@ -1500,7 +1528,7 @@ export const irregularVerbGroups = {
     },
 
     "aught-ought": {
-        title: "-aught / -ought",
+        title: "2nd group",
         description: "Similar sound patterns",
         words: [
             {
@@ -1570,7 +1598,7 @@ export const irregularVerbGroups = {
     },
 
     "vowel-change-1": {
-        title: "Vowel Change",
+        title: "3rd group",
         description: "Different vowel patterns",
         words: [
             {
@@ -1640,7 +1668,7 @@ export const irregularVerbGroups = {
     },
 
     "i-a-u": {
-        title: "I → A → U",
+        title: "4th group",
         description: "Sing, ring, drink and similar verbs",
         words: [
             {
@@ -1696,12 +1724,15 @@ export const irregularVerbGroups = {
                 image: "images/drink.jpg",
                 audio: "audio/drink.mp3",
                 sentence: "I ________ some water after the run."
-            }
+            },
+            { word: "stink", translation: "вонять", forms: { v1: "stink", v2: "stank", v3: "stunk" }, formTranslations: { v1: "вонять", v2: "вонял", v3: "провонявший" }, image: "images/stink.jpg", audio: "audio/stink.mp3", sentence: "It ________ bad." },
+            { word: "shrink", translation: "садиться, сжиматься", forms: { v1: "shrink", v2: "shrank", v3: "shrunk" }, formTranslations: { v1: "сжиматься", v2: "сжался", v3: "сжатый" }, image: "images/shrink.jpg", audio: "audio/shrink.mp3", sentence: "The shirt will ________ in hot water." },
+            { word: "sink", translation: "тонуть", forms: { v1: "sink", v2: "sank", v3: "sunk" }, formTranslations: { v1: "тонуть", v2: "потонул", v3: "затонувший" }, image: "images/sink.jpg", audio: "audio/sink.mp3", sentence: "The ship began to ________." }
         ]
     },
 
     "same-form": {
-        title: "Same form",
+        title: "5th group",
         description: "Verbs with identical forms",
         words: [
             { word: "let", translation: "позволять", forms: { v1: "let", v2: "let", v3: "let" }, formTranslations: { v1: "позволять", v2: "позволил", v3: "позволенный" }, image: "images/let.jpg", audio: "audio/let.mp3", sentence: "Let me ________ you." },
@@ -1716,7 +1747,7 @@ export const irregularVerbGroups = {
     },
 
     "eep-elt": {
-        title: "-eep / -eel → -ept / -elt",
+        title: "6th group",
         description: "Similar sound patterns",
         words: [
             { word: "keep", translation: "сохранять", forms: { v1: "keep", v2: "kept", v3: "kept" }, formTranslations: { v1: "сохранять", v2: "сохранил", v3: "сохраненный" }, image: "images/keep.jpg", audio: "audio/keep.mp3", sentence: "Please ________ this secret." },
@@ -1733,7 +1764,7 @@ export const irregularVerbGroups = {
     },
 
     "ow-ew-own": {
-        title: "-ow / -ew → -own",
+        title: "7th group",
         description: "Similar sound patterns",
         words: [
             { word: "blow", translation: "дуть", forms: { v1: "blow", v2: "blew", v3: "blown" }, formTranslations: { v1: "дуть", v2: "дул", v3: "дунутый" }, image: "images/blow.jpg", audio: "audio/blow.mp3", sentence: "The wind ________ hard." },
@@ -1746,7 +1777,7 @@ export const irregularVerbGroups = {
     },
 
     "ore-orn": {
-        title: "-ore → -orn / -ore",
+        title: "8th group",
         description: "Similar sound patterns",
         words: [
             { word: "swear", translation: "клясться", forms: { v1: "swear", v2: "swore", v3: "sworn" }, formTranslations: { v1: "клясться", v2: "поклялся", v3: "поклявшийся" }, image: "images/swear.jpg", audio: "audio/swear.mp3", sentence: "I ________ to tell the truth." },
@@ -1757,18 +1788,8 @@ export const irregularVerbGroups = {
         ]
     },
 
-    "i-a-u-alt": {
-        title: "I → A → U (Part 2)",
-        description: "Alternative vowel patterns",
-        words: [
-            { word: "stink", translation: "вонять", forms: { v1: "stink", v2: "stank", v3: "stunk" }, formTranslations: { v1: "вонять", v2: "вонял", v3: "провонявший" }, image: "images/stink.jpg", audio: "audio/stink.mp3", sentence: "It ________ bad." },
-            { word: "shrink", translation: "садиться, сжиматься", forms: { v1: "shrink", v2: "shrank", v3: "shrunk" }, formTranslations: { v1: "сжиматься", v2: "сжался", v3: "сжатый" }, image: "images/shrink.jpg", audio: "audio/shrink.mp3", sentence: "The shirt will ________ in hot water." },
-            { word: "sink", translation: "тонуть", forms: { v1: "sink", v2: "sank", v3: "sunk" }, formTranslations: { v1: "тонуть", v2: "потонул", v3: "затонувший" }, image: "images/sink.jpg", audio: "audio/sink.mp3", sentence: "The ship began to ________." }
-        ]
-    },
-
     "o-o-en": {
-        title: "O → O → EN",
+        title: "9th group",
         description: "Vowel transition patterns",
         words: [
             { word: "speak", translation: "говорить", forms: { v1: "speak", v2: "spoke", v3: "spoken" }, formTranslations: { v1: "говорить", v2: "говорил", v3: "говорящий" }, image: "images/speak.jpg", audio: "audio/speak.mp3", sentence: "Please ________ slowly." },
@@ -1785,35 +1806,8 @@ export const irregularVerbGroups = {
         ]
     },
 
-    "common-irregular": {
-        title: "Common irregular",
-        description: "Frequently used irregular verbs",
-        words: [
-            { word: "get", translation: "получать", forms: { v1: "get", v2: "got", v3: "got" }, formTranslations: { v1: "получать", v2: "получил", v3: "полученный" }, image: "images/get.jpg", audio: "audio/get.mp3", sentence: "Did you ________ my message?" },
-            { word: "build", translation: "строить", forms: { v1: "build", v2: "built", v3: "built" }, formTranslations: { v1: "строить", v2: "построил", v3: "построенный" }, image: "images/build.jpg", audio: "audio/build.mp3", sentence: "They ________ a house." },
-            { word: "light", translation: "зажигать", forms: { v1: "light", v2: "lit", v3: "lit" }, formTranslations: { v1: "зажигать", v2: "зажег", v3: "зажженный" }, image: "images/light.jpg", audio: "audio/light.mp3", sentence: "Please ________ the candle." },
-            { word: "lose", translation: "терять", forms: { v1: "lose", v2: "lost", v3: "lost" }, formTranslations: { v1: "терять", v2: "потерял", v3: "потерянный" }, image: "images/lose.jpg", audio: "audio/lose.mp3", sentence: "Don't ________ your keys." },
-            { word: "stand", translation: "стоять", forms: { v1: "stand", v2: "stood", v3: "stood" }, formTranslations: { v1: "стоять", v2: "стоял", v3: "простоявший" }, image: "images/stand.jpg", audio: "audio/stand.mp3", sentence: "Please ________ up." },
-            { word: "understand", translation: "понимать", forms: { v1: "understand", v2: "understood", v3: "understood" }, formTranslations: { v1: "понимать", v2: "понял", v3: "понятый" }, image: "images/understand.jpg", audio: "audio/understand.mp3", sentence: "I ________ you." },
-            { word: "find", translation: "находить", forms: { v1: "find", v2: "found", v3: "found" }, formTranslations: { v1: "находить", v2: "нашел", v3: "найденный" }, image: "images/find.jpg", audio: "audio/find.mp3", sentence: "I ________ my phone." },
-            { word: "hear", translation: "слышать", forms: { v1: "hear", v2: "heard", v3: "heard" }, formTranslations: { v1: "слышать", v2: "услышал", v3: "услышанный" }, image: "images/hear.jpg", audio: "audio/hear.mp3", sentence: "Did you ________ that noise?" },
-            { word: "make", translation: "делать", forms: { v1: "make", v2: "made", v3: "made" }, formTranslations: { v1: "делать", v2: "сделал", v3: "сделанный" }, image: "images/make.jpg", audio: "audio/make.mp3", sentence: "She ________ a cake." },
-            { word: "pay", translation: "платить", forms: { v1: "pay", v2: "paid", v3: "paid" }, formTranslations: { v1: "платить", v2: "оплатил", v3: "оплаченный" }, image: "images/pay.jpg", audio: "audio/pay.mp3", sentence: "I will ________ for dinner." },
-            { word: "say", translation: "сказать", forms: { v1: "say", v2: "said", v3: "said" }, formTranslations: { v1: "сказать", v2: "сказал", v3: "сказанный" }, image: "images/say.jpg", audio: "audio/say.mp3", sentence: "What did he ________?" },
-            { word: "have", translation: "иметь", forms: { v1: "have", v2: "had", v3: "had" }, formTranslations: { v1: "иметь", v2: "имел", v3: "имеемый" }, image: "images/have.jpg", audio: "audio/have.mp3", sentence: "I ________ a cat." },
-            { word: "tell", translation: "рассказывать", forms: { v1: "tell", v2: "told", v3: "told" }, formTranslations: { v1: "рассказывать", v2: "рассказал", v3: "рассказанный" }, image: "images/tell.jpg", audio: "audio/tell.mp3", sentence: "Please ________ me a story." },
-            { word: "sell", translation: "продавать", forms: { v1: "sell", v2: "sold", v3: "sold" }, formTranslations: { v1: "продавать", v2: "продал", v3: "проданный" }, image: "images/sell.jpg", audio: "audio/sell.mp3", sentence: "They ________ old cars." },
-            { word: "dig", translation: "копать", forms: { v1: "dig", v2: "dug", v3: "dug" }, formTranslations: { v1: "копать", v2: "копал", v3: "выкопанный" }, image: "images/dig.jpg", audio: "audio/dig.mp3", sentence: "Dogs like to ________." },
-            { word: "sit", translation: "сидеть", forms: { v1: "sit", v2: "sat", v3: "sat" }, formTranslations: { v1: "сидеть", v2: "сидел", v3: "сидевший" }, image: "images/sit.jpg", audio: "audio/sit.mp3", sentence: "Please ________ down." },
-            { word: "be", translation: "быть", forms: { v1: "be", v2: "was/were", v3: "been" }, formTranslations: { v1: "быть", v2: "был", v3: "бывший" }, image: "images/be.jpg", audio: "audio/be.mp3", sentence: "I want to ________ happy." },
-            { word: "see", translation: "видеть", forms: { v1: "see", v2: "saw", v3: "seen" }, formTranslations: { v1: "видеть", v2: "видел", v3: "увиденный" }, image: "images/see.jpg", audio: "audio/see.mp3", sentence: "I can ________ a bird." },
-            { word: "go", translation: "идти", forms: { v1: "go", v2: "went", v3: "gone" }, formTranslations: { v1: "идти", v2: "пошел", v3: "ушедший" }, image: "images/go.jpg", audio: "audio/go.mp3", sentence: "Let's ________ home." },
-            { word: "do", translation: "делать", forms: { v1: "do", v2: "did", v3: "done" }, formTranslations: { v1: "делать", v2: "сделал", v3: "сделанный" }, image: "images/do.jpg", audio: "audio/do.mp3", sentence: "What do you ________?" }
-        ]
-    },
-
     "special-changes": {
-        title: "Special changes",
+        title: "10th group",
         description: "Irregular verbs with unique patterns",
         words: [
             { word: "forgive", translation: "прощать", forms: { v1: "forgive", v2: "forgave", v3: "forgiven" }, formTranslations: { v1: "прощать", v2: "простил", v3: "прощенный" }, image: "images/forgive.jpg", audio: "audio/forgive.mp3", sentence: "Please ________ me." },
